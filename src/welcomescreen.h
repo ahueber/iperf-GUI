@@ -12,6 +12,8 @@ public:
 signals:
 
 public slots:
+    void onClientButtonClicked();
+    void onExitButtonClicked();
 };
 
 #endif // WELCOMESCREEN_H

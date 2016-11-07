@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    welcomescreen.cpp
+    welcomescreen.cpp \
+    client.cpp
 
 HEADERS  += \
-    welcomescreen.h
+    welcomescreen.h \
+    client.h
 
 FORMS    += mainwindow.ui
