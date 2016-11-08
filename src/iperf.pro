@@ -14,10 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     welcomescreen.cpp \
-    client.cpp
+    client.cpp \
+    server.cpp
 
 HEADERS  += \
     welcomescreen.h \
-    client.h
-
-FORMS    += mainwindow.ui
+    client.h \
+    server.h

@@ -1,5 +1,6 @@
 #include "welcomescreen.h"
 #include "client.h"
+#include "server.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -31,6 +32,7 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
     //connect buttons
 
     QObject::connect(clientButton, SIGNAL(clicked()), this, SLOT(onClientButtonClicked()));
+    QObject::connect(serverButton, SIGNAL(clicked()), this, SLOT(onServerButtonClicked()));
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
 
     vLayout->addLayout(buttonsLayout);
@@ -44,6 +46,12 @@ void WelcomeScreen::onClientButtonClicked()
     Client *c = new Client();
     //c->show();
     c->showFullScreen();
+}
+
+void WelcomeScreen::onServerButtonClicked()
+{
+    Server *s = new Server();
+    s->showFullScreen();
 }
 
 void WelcomeScreen::onExitButtonClicked()

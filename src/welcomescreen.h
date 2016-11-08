@@ -13,6 +13,7 @@ signals:
 
 public slots:
     void onClientButtonClicked();
+    void onServerButtonClicked();
     void onExitButtonClicked();
 };
 
