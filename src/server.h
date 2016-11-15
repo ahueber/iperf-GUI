@@ -5,6 +5,7 @@
 
 class TrafficLight;
 class QPushButton;
+class QTextEdit;
 
 class Server : public QWidget
 {
@@ -14,6 +15,7 @@ private:
     bool listening;
     TrafficLight *tl;
     QPushButton *startButton;
+    QTextEdit *log;
 
 public:
     explicit Server(QWidget *parent = 0);

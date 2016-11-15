@@ -36,9 +36,8 @@ Server::Server(QWidget *parent) : QWidget(parent)
     tl->setColor(TrafficLight::yellow);
 
     //log window
-    QTextEdit *log = new QTextEdit();
+    log = new QTextEdit();
     log->setReadOnly(true);
-    log->setPlaceholderText("blubb");
 
     layout->addWidget(label, 0, 1);
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
@@ -63,6 +62,14 @@ void Server::onStartButtonClicked()
         tl->setColor(TrafficLight::green);
         listening = false;
         startButton->setText("Stop");
+
+        QString longtext;
+        for(int i = 0; i < 100; i++){
+            longtext.append("[  4]  0.0- 1.0 sec   1.3 MBytes  10.0 Mbits/sec  0.209 ms    1/  894 (0.11%)\n ");
+        }
+
+
+        log->setText(longtext);
     }else{
         tl->setColor(TrafficLight::red);
         startButton->setText("Restart");
