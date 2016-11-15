@@ -6,7 +6,7 @@
 
 Client::Client(QWidget *parent) : QWidget(parent)
 {
-    setMinimumSize(800, 480);
+    setFixedSize(800, 480);
     QVBoxLayout *layout = new QVBoxLayout();
 
     QFont font;

@@ -15,9 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp \
     welcomescreen.cpp \
     client.cpp \
-    server.cpp
+    server.cpp \
+    trafficlight.cpp
 
 HEADERS  += \
     welcomescreen.h \
     client.h \
-    server.h
+    server.h \
+    trafficlight.h
+
+
