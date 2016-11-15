@@ -14,10 +14,8 @@ TrafficLight::TrafficLight(QWidget *parent) : QWidget(parent)
     label->setScaledContents(false);
     label->setAlignment(Qt::AlignLeft);
 
-    QString path = "/home/ahueber/projects/iperf/iperf-gui/images/tl_green.png";
-    QPixmap pic(path);
+    QPixmap pic(":/trafficLight/images/tl_yellow.png");
 
-    qDebug()<<path;
     label->setPixmap(pic.scaled(150, 300, Qt::KeepAspectRatio));
 
     layout->addWidget(label);

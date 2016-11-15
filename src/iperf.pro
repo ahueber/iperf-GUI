@@ -24,4 +24,7 @@ HEADERS  += \
     server.h \
     trafficlight.h
 
+RESOURCES += \
+    ../images.qrc
+
 
