@@ -7,19 +7,35 @@
 
 TrafficLight::TrafficLight(QWidget *parent) : QWidget(parent)
 {
-    QHBoxLayout *layout = new QHBoxLayout();
-    //setMinimumSize(50, 100);
+    layout = new QHBoxLayout();
 
-    QLabel *label = new QLabel();
+    label = new QLabel();
     label->setScaledContents(false);
     label->setAlignment(Qt::AlignLeft);
 
-    QPixmap pic(":/trafficLight/images/tl_yellow.png");
+    //QPixmap pic(":/trafficLight/images/tl_yellow.png");
+
+
+}
+
+void TrafficLight::setColor(TrafficLight::color c)
+{
+    QPixmap pic;
+    switch(c){
+        case green:
+            pic.load(":/trafficLight/images/tl_green.png");
+            break;
+        case red:
+            pic.load(":/trafficLight/images/tl_red.png");
+            break;
+        case yellow:
+            pic.load(":/trafficLight/images/tl_yellow.png");
+            break;
+    }
 
     label->setPixmap(pic.scaled(150, 300, Qt::KeepAspectRatio));
 
     layout->addWidget(label);
     this->setLayout(layout);
-
 }
 

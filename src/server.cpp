@@ -7,12 +7,15 @@
 #include <QFont>
 #include <QPushButton>
 #include <QTextEdit>
+#include <QDebug>
 
 Server::Server(QWidget *parent) : QWidget(parent)
 {
     setFixedSize(800, 480);
     QGridLayout *layout = new QGridLayout();
+    listening = true;
 
+    //window title
     QFont font;
     font.setBold(true);
     font.setPointSize(30);
@@ -24,20 +27,27 @@ Server::Server(QWidget *parent) : QWidget(parent)
     label->setMinimumSize(200, 200);
     label->adjustSize();
 
+    //exit & start button
     QPushButton *exitButton = new QPushButton("Exit");
+    startButton = new QPushButton("Start");
 
-    TrafficLight *tl = new TrafficLight();
+    //traffic light
+    tl = new TrafficLight();
+    tl->setColor(TrafficLight::yellow);
 
+    //log window
     QTextEdit *log = new QTextEdit();
     log->setReadOnly(true);
     log->setPlaceholderText("blubb");
 
     layout->addWidget(label, 0, 1);
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
-    layout->addWidget(log, 1, 1);
-    layout->addWidget(exitButton, 2, 1);
+    layout->addWidget(log, 1, 1, 1, 2);
+    layout->addWidget(exitButton, 2, 2);
+    layout->addWidget(startButton, 2, 1);
 
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
+    QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
 
     setLayout(layout);
 }
@@ -45,5 +55,18 @@ Server::Server(QWidget *parent) : QWidget(parent)
 void Server::onExitButtonClicked()
 {
     this->close();
+}
+
+void Server::onStartButtonClicked()
+{
+    if(listening){
+        tl->setColor(TrafficLight::green);
+        listening = false;
+        startButton->setText("Stop");
+    }else{
+        tl->setColor(TrafficLight::red);
+        startButton->setText("Restart");
+        listening = true;
+    }
 }
 
