@@ -1,14 +1,17 @@
 #include "server.h"
+#include "trafficlight.h"
 
 #include <QVBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
 #include <QFont>
 #include <QPushButton>
+#include <QTextEdit>
 
 Server::Server(QWidget *parent) : QWidget(parent)
 {
-    setMinimumSize(800, 480);
-    QVBoxLayout *layout = new QVBoxLayout();
+    setFixedSize(800, 480);
+    QGridLayout *layout = new QGridLayout();
 
     QFont font;
     font.setBold(true);
@@ -19,11 +22,20 @@ Server::Server(QWidget *parent) : QWidget(parent)
     label->setAlignment(Qt::AlignCenter);
     label->setFont(font);
     label->setMinimumSize(200, 200);
+    label->adjustSize();
 
     QPushButton *exitButton = new QPushButton("Exit");
 
-    layout->addWidget(label);
-    layout->addWidget(exitButton);
+    TrafficLight *tl = new TrafficLight();
+
+    QTextEdit *log = new QTextEdit();
+    log->setReadOnly(true);
+    log->setPlaceholderText("blubb");
+
+    layout->addWidget(label, 0, 1);
+    layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
+    layout->addWidget(log, 1, 1);
+    layout->addWidget(exitButton, 2, 1);
 
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
 

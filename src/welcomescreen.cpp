@@ -8,7 +8,7 @@
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 {
 
-    setMinimumSize(800, 480);
+    setFixedSize(800, 480);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout();
     QVBoxLayout *vLayout = new QVBoxLayout();
@@ -44,14 +44,15 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 void WelcomeScreen::onClientButtonClicked()
 {
     Client *c = new Client();
-    //c->show();
-    c->showFullScreen();
+    c->show();
+    //c->showFullScreen();
 }
 
 void WelcomeScreen::onServerButtonClicked()
 {
     Server *s = new Server();
-    s->showFullScreen();
+    //s->showFullScreen();
+    s->show();
 }
 
 void WelcomeScreen::onExitButtonClicked()
