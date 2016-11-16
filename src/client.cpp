@@ -44,18 +44,18 @@ Client::Client(QWidget *parent) : QWidget(parent)
 
     fieldRuntime = new QLineEdit();
     fieldRuntime->setFixedWidth(100);
+    fieldRuntime->setPlaceholderText("10-1000s");
 
     fieldBandwidth = new QLineEdit();
     fieldBandwidth->setFixedWidth(100);
+    fieldBandwidth->setPlaceholderText("1-100 Mbit/s");
 
     //sliders
     sliderRuntime = new QSlider(Qt::Horizontal);
-    sliderRuntime->setRange(0, 100);
-    sliderRuntime->setSingleStep(1);
+    sliderRuntime->setRange(1, 100);
 
     sliderBandwidth = new QSlider(Qt::Horizontal);
-    sliderBandwidth->setRange(0, 100);
-    sliderBandwidth->setSingleStep(1);
+    sliderBandwidth->setRange(1, 100);
 
     //buttons
     QPushButton *exitButton = new QPushButton("Close");
@@ -111,11 +111,11 @@ void Client::onStartButtonClicked()
 
 void Client::onRuntimeChanged(int value)
 {
-    fieldRuntime->setText(QString::number(value));
+    fieldRuntime->setText(QString::number(value*10)+" s");
 }
 
 void Client::onBandwidthChanged(int value)
 {
-    fieldBandwidth->setText(QString::number(value));
+    fieldBandwidth->setText(QString::number(value)+" Mbit/s");
 }
 
