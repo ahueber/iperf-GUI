@@ -5,7 +5,7 @@
 
 class TrafficLight;
 class QPushButton;
-class QComboBox;
+class QRadioButton;
 class QSlider;
 class QLineEdit;
 
@@ -18,7 +18,8 @@ private:
     QPushButton *startButton;
     QSlider *sliderRuntime;
     QSlider *sliderBandwidth;
-    QComboBox *fieldModus;
+    QRadioButton *simplex;
+    QRadioButton *duplex;
     QLineEdit *fieldRuntime;
     QLineEdit *fieldBandwidth;
 

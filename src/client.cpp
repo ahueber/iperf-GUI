@@ -5,7 +5,7 @@
 #include <QFont>
 #include <QPushButton>
 #include <QLineEdit>
-#include <QComboBox>
+#include <QRadioButton>
 #include <QSlider>
 
 Client::Client(QWidget *parent) : QWidget(parent)
@@ -23,6 +23,10 @@ Client::Client(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     font.setPointSize(20);
 
+    QFont font2;
+    font2.setBold(true);
+    font2.setPointSize(15);
+
     QLabel *labelIP = new QLabel("IP");
     labelIP->setFont(font);
     QLabel *labelModus = new QLabel("Modus");
@@ -38,9 +42,11 @@ Client::Client(QWidget *parent) : QWidget(parent)
     fieldIP->setFont(font);
     fieldIP->setPlaceholderText("z.B. 192.168.1.37");
 
-    fieldModus = new QComboBox();
-    fieldModus->addItem("Duplex");
-    fieldModus->addItem("Simplex");
+    simplex = new QRadioButton("Simplex");
+    simplex->setFont(font2);
+    duplex = new QRadioButton("Duplex");
+    duplex->setFont(font2);
+    duplex->setChecked(true);
 
     fieldRuntime = new QLineEdit();
     fieldRuntime->setFixedWidth(100);
@@ -70,14 +76,15 @@ Client::Client(QWidget *parent) : QWidget(parent)
     layout->addWidget(labelRuntime, 2, 1);
     layout->addWidget(labelBandwidth, 3, 1);
     layout->addWidget(fieldIP, 0, 2, 1, 2);
-    layout->addWidget(fieldModus, 1, 2, 1, 2);
+    layout->addWidget(duplex, 1, 2);
+    layout->addWidget(simplex, 1, 3);
     layout->addWidget(fieldRuntime, 2, 2);
     layout->addWidget(fieldBandwidth, 3, 2);
     layout->addWidget(sliderRuntime, 2, 3);
     layout->addWidget(sliderBandwidth, 3, 3);
     layout->addWidget(keyboard, 0, 4);
     layout->addWidget(startButton, 4, 1, 1, 2);
-    layout->addWidget(exitButton, 4, 3, 1, 2);
+    layout->addWidget(exitButton, 4, 3, 1, 1);
 
     //connectors
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
