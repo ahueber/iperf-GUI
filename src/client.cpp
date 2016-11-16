@@ -38,20 +38,24 @@ Client::Client(QWidget *parent) : QWidget(parent)
     fieldIP->setFont(font);
     fieldIP->setPlaceholderText("z.B. 192.168.1.37");
 
-    QComboBox *fieldModus = new QComboBox();
+    fieldModus = new QComboBox();
+    fieldModus->addItem("Duplex");
+    fieldModus->addItem("Simplex");
 
-    QLineEdit *fieldRuntime = new QLineEdit();
+    fieldRuntime = new QLineEdit();
     fieldRuntime->setFixedWidth(100);
 
-    QLineEdit *fieldBandwidth = new QLineEdit();
+    fieldBandwidth = new QLineEdit();
     fieldBandwidth->setFixedWidth(100);
 
     //sliders
-    QSlider *sliderRuntime = new QSlider(Qt::Horizontal);
+    sliderRuntime = new QSlider(Qt::Horizontal);
+    sliderRuntime->setRange(0, 100);
+    sliderRuntime->setSingleStep(1);
 
-
-    QSlider *sliderBandwidth = new QSlider(Qt::Horizontal);
-
+    sliderBandwidth = new QSlider(Qt::Horizontal);
+    sliderBandwidth->setRange(0, 100);
+    sliderBandwidth->setSingleStep(1);
 
     //buttons
     QPushButton *exitButton = new QPushButton("Close");
@@ -75,8 +79,11 @@ Client::Client(QWidget *parent) : QWidget(parent)
     layout->addWidget(startButton, 4, 1, 1, 2);
     layout->addWidget(exitButton, 4, 3, 1, 2);
 
+    //connectors
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
+    QObject::connect(sliderRuntime, SIGNAL(sliderMoved(int)), this, SLOT(onRuntimeChanged(int)));
+    QObject::connect(sliderBandwidth, SIGNAL(sliderMoved(int)), this, SLOT(onBandwidthChanged(int)));
 
     setLayout(layout);
 }
@@ -100,5 +107,15 @@ void Client::onStartButtonClicked()
 
     }
 
+}
+
+void Client::onRuntimeChanged(int value)
+{
+    fieldRuntime->setText(QString::number(value));
+}
+
+void Client::onBandwidthChanged(int value)
+{
+    fieldBandwidth->setText(QString::number(value));
 }
 
