@@ -1,2 +1,3 @@
 src/iperf.pro.user
 build-iperf-Desktop-Debug/*
+build-iperf*
