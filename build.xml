@@ -1,12 +1,9 @@
 <project name="iperf" default="qmake">
 
-	<target name="init">
-		<mkdir dir="/build"/>
-	</target>
-	
-	<target name="qmake" depends="init">
+	<target name="qmake">
 		<exec executable="qmake">
-			<arg value="/src/iperf.pro"/>
+			<arg value="CONFIG+=Debug"/>
+			<arg value="src/iperf.pro"/>
 		</exec>	
 
 		<exec executable="make"/>
