@@ -14,20 +14,28 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
     QVBoxLayout *vLayout = new QVBoxLayout();
 
     //create server & client buttons
+
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(25);
+
     QPushButton *serverButton = new QPushButton("Server");
     QPushButton *clientButton = new QPushButton("Client");
-    QSize buttonSize(200, 200);
-    serverButton->setFixedSize(buttonSize);
-    clientButton->setFixedSize(buttonSize);
+    QSize buttonSize(250, 250);
+    serverButton->setMinimumSize(buttonSize);
+    clientButton->setMinimumSize(buttonSize);
+    serverButton->setFont(font);
+    clientButton->setFont(font);
 
     //add buttons to horizontal layout
     buttonsLayout->addWidget(serverButton);
-    buttonsLayout->addSpacing(200);
+    buttonsLayout->addSpacing(100);
     buttonsLayout->addWidget(clientButton);
     buttonsLayout->setAlignment(Qt::AlignCenter);
 
     //create exit button
     QPushButton *exitButton = new QPushButton("Exit");
+    exitButton->setFont(font);
 
     //connect buttons
 
