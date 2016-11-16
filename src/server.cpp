@@ -16,7 +16,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     QGridLayout *layout = new QGridLayout();
     listening = true;
 
-    //window title
+    //IP address
     QFont font;
     font.setBold(true);
     font.setPointSize(30);
@@ -28,7 +28,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     label->adjustSize();
 
     //exit & start button
-    QPushButton *exitButton = new QPushButton("Exit");
+    QPushButton *exitButton = new QPushButton("Close");
     startButton = new QPushButton("Start");
 
     //traffic light
@@ -40,8 +40,8 @@ Server::Server(QWidget *parent) : QWidget(parent)
     log->setReadOnly(true);
     log->setPlaceholderText("Log Ausgabe:");
 
-    layout->addWidget(label, 0, 1);
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
+    layout->addWidget(label, 0, 1);
     layout->addWidget(log, 1, 1, 1, 2);
     layout->addWidget(exitButton, 2, 2);
     layout->addWidget(startButton, 2, 1);

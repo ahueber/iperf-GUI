@@ -44,15 +44,14 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 void WelcomeScreen::onClientButtonClicked()
 {
     Client *c = new Client();
-    c->show();
-    //c->showFullScreen();
+    c->showFullScreen();
 }
 
 void WelcomeScreen::onServerButtonClicked()
 {
     Server *s = new Server();
-    //s->showFullScreen();
-    s->show();
+    s->showFullScreen();
+
 }
 
 void WelcomeScreen::onExitButtonClicked()

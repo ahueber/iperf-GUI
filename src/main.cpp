@@ -7,7 +7,6 @@ int main(int argc, char *argv[])
     WelcomeScreen w;
 
     w.show();
-    //w.showFullScreen();
 
     return a.exec();
 }
