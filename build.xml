@@ -5,16 +5,10 @@
 	</target>
 	
 	<target name="qmake" depends="init">
-		<exec executable="cd">
-			<arg value="build"/>
-		</exec>	
 		<exec executable="qmake">
 			<arg value="/src/iperf.pro"/>
 		</exec>	
-	</target>
-	
-	<target name="make">
+
 		<exec executable="make"/>
 	</target>
-	
 </project>	
