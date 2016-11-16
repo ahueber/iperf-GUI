@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QDebug>
+#include <QTextCursor>
 
 Server::Server(QWidget *parent) : QWidget(parent)
 {
@@ -20,11 +21,10 @@ Server::Server(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     font.setPointSize(30);
 
-    QLabel *label = new QLabel("Server Window");
+    QLabel *label = new QLabel("192.168.1.37");
     label->setScaledContents(true);
     label->setAlignment(Qt::AlignCenter);
     label->setFont(font);
-    label->setMinimumSize(200, 200);
     label->adjustSize();
 
     //exit & start button
@@ -38,6 +38,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     //log window
     log = new QTextEdit();
     log->setReadOnly(true);
+    log->setPlaceholderText("Log Ausgabe:");
 
     layout->addWidget(label, 0, 1);
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
@@ -69,11 +70,15 @@ void Server::onStartButtonClicked()
         }
 
 
-        log->setText(longtext);
+        log->insertPlainText(longtext);
     }else{
         tl->setColor(TrafficLight::red);
         startButton->setText("Restart");
         listening = true;
+        log->insertHtml("<font size=6><b>terminated</b></font size>");
     }
+    QTextCursor c = log->textCursor();
+    c.movePosition(QTextCursor::End);
+    log->setTextCursor(c);
 }
 
