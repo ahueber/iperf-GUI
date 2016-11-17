@@ -39,7 +39,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     labelBandwidth->setFixedWidth(180);
 
     //data entry fields
-    QLineEdit *fieldIP = new QLineEdit();
+    fieldIP = new QLineEdit();
     fieldIP->setFont(font);
     fieldIP->setPlaceholderText("z.B. 192.168.1.37");
 
@@ -120,7 +120,7 @@ void Client::onStartButtonClicked()
 
 void Client::onKeyboardClicked()
 {
-    NumPad *keyboard = new NumPad();
+    NumPad *keyboard = new NumPad(this);
     keyboard->show();
 }
 
@@ -132,5 +132,15 @@ void Client::onRuntimeChanged(int value)
 void Client::onBandwidthChanged(int value)
 {
     fieldBandwidth->setText(QString::number(value)+" Mbit/s");
+}
+
+void Client::setIP(QString s)
+{
+    fieldIP->setText(s);
+}
+
+QString Client::getIP()
+{
+    return fieldIP->text();
 }
 

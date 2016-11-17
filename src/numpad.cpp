@@ -1,11 +1,12 @@
 #include "numpad.h"
+#include "client.h"
 #include <QGridLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QDebug>
 #include <QFont>
 
-NumPad::NumPad(QWidget *parent) : QWidget(parent)
+NumPad::NumPad(Client *c) : client(c)
 {
     setFixedSize(800, 480);
     QGridLayout *layout = new QGridLayout();
@@ -13,13 +14,14 @@ NumPad::NumPad(QWidget *parent) : QWidget(parent)
     panel = new QLabel();
     panel->setAlignment(Qt::AlignRight);
     panel->setMinimumHeight(100);
-    panel->setStyleSheet("QLabel { font-size: 24px; background-color: #666666; color: #ffffff; }");
+    panel->setStyleSheet("QLabel { font-size: 60px; background-color: #666666; color: #ffffff; }");
+    panel->setText(client->getIP());
 
     QList<QPushButton*> buttonList;
 
     QFont font;
     font.setBold(true);
-    font.setPointSize(15);
+    font.setPointSize(20);
 
     btn0 = new QPushButton("0");
     btn1 = new QPushButton("1");
@@ -69,6 +71,98 @@ NumPad::NumPad(QWidget *parent) : QWidget(parent)
     layout->addWidget(btnBksp, 1, 3, 2, 1);
     layout->addWidget(btnDone, 3, 3, 2, 1);
 
+    QObject::connect(btn0, SIGNAL(clicked()), this, SLOT(onButtonZeroClicked()));
+    QObject::connect(btn1, SIGNAL(clicked()), this, SLOT(onButtonOneClicked()));
+    QObject::connect(btn2, SIGNAL(clicked()), this, SLOT(onButtonTwoClicked()));
+    QObject::connect(btn3, SIGNAL(clicked()), this, SLOT(onButtonThreeClicked()));
+    QObject::connect(btn4, SIGNAL(clicked()), this, SLOT(onButtonFourClicked()));
+    QObject::connect(btn5, SIGNAL(clicked()), this, SLOT(onButtonFiveClicked()));
+    QObject::connect(btn6, SIGNAL(clicked()), this, SLOT(onButtonSixClicked()));
+    QObject::connect(btn7, SIGNAL(clicked()), this, SLOT(onButtonSevenClicked()));
+    QObject::connect(btn8, SIGNAL(clicked()), this, SLOT(onButtonEightClicked()));
+    QObject::connect(btn9, SIGNAL(clicked()), this, SLOT(onButtonNineClicked()));
+    QObject::connect(btnDot, SIGNAL(clicked()), this, SLOT(onButtonDotClicked()));
+    QObject::connect(btnDone, SIGNAL(clicked()), this, SLOT(onButtonDoneClicked()));
+    QObject::connect(btnBksp, SIGNAL(clicked()), this, SLOT(onButtonBkspClicked()));
+
     setLayout(layout);
+}
+
+void NumPad::addString(QString str){
+    QString text = panel->text();
+    if(text.size() > 0 && text.at(text.size()-1) != '.'){
+        text += str;
+    }else if (str != "."){
+        text += str;
+    }
+    panel->setText(text);
+}
+
+void NumPad::onButtonZeroClicked()
+{
+    this->addString("0");
+}
+
+void NumPad::onButtonOneClicked()
+{
+    this->addString("1");
+}
+
+void NumPad::onButtonTwoClicked()
+{
+    this->addString("2");
+}
+
+void NumPad::onButtonThreeClicked()
+{
+    this->addString("3");
+}
+
+void NumPad::onButtonFourClicked()
+{
+    this->addString("4");
+}
+
+void NumPad::onButtonFiveClicked()
+{
+    this->addString("5");
+}
+
+void NumPad::onButtonSixClicked()
+{
+    this->addString("6");
+}
+
+void NumPad::onButtonSevenClicked()
+{
+    this->addString("7");
+}
+
+void NumPad::onButtonEightClicked()
+{
+    this->addString("8");
+}
+
+void NumPad::onButtonNineClicked()
+{
+    this->addString("9");
+}
+
+void NumPad::onButtonDotClicked()
+{
+    this->addString(".");
+}
+
+void NumPad::onButtonDoneClicked()
+{
+    client->setIP(panel->text());
+    this->close();
+}
+
+void NumPad::onButtonBkspClicked()
+{
+    QString text = panel->text().mid(0, panel->text().size()-1);
+
+    panel->setText(text);
 }
 

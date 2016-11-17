@@ -5,6 +5,7 @@
 
 class QPushButton;
 class QLabel;
+class Client;
 
 class NumPad : public QWidget
 {
@@ -24,12 +25,28 @@ private:
     QPushButton *btnDone;
     QPushButton *btnBksp;
     QLabel *panel;
+    void addString(QString str);
 public:
-    explicit NumPad(QWidget *parent = 0);
+    explicit NumPad(Client *c);
+    Client *client;
+
 
 signals:
 
 public slots:
+    void onButtonZeroClicked();
+    void onButtonOneClicked();
+    void onButtonTwoClicked();
+    void onButtonThreeClicked();
+    void onButtonFourClicked();
+    void onButtonFiveClicked();
+    void onButtonSixClicked();
+    void onButtonSevenClicked();
+    void onButtonEightClicked();
+    void onButtonNineClicked();
+    void onButtonDotClicked();
+    void onButtonDoneClicked();
+    void onButtonBkspClicked();
 };
 
 #endif // NUMPAD_H
