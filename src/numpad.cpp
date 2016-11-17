@@ -12,6 +12,7 @@ NumPad::NumPad(Client *c) : client(c)
     QGridLayout *layout = new QGridLayout();
 
     panel = new QLabel();
+
     panel->setAlignment(Qt::AlignRight);
     panel->setMinimumHeight(100);
     panel->setStyleSheet("QLabel { font-size: 60px; background-color: #666666; color: #ffffff; }");
