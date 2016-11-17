@@ -16,7 +16,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     QGridLayout *layout = new QGridLayout();
     listening = true;
 
-    //IP address
+    //IP address label
     QFont font;
     font.setBold(true);
     font.setPointSize(30);
@@ -75,7 +75,7 @@ void Server::onStartButtonClicked()
         tl->setColor(TrafficLight::red);
         startButton->setText("Restart");
         listening = true;
-        log->insertHtml("<font size=6><b>terminated</b></font size>");
+        log->insertPlainText("terminated");
     }
     QTextCursor c = log->textCursor();
     c.movePosition(QTextCursor::End);

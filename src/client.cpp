@@ -1,5 +1,6 @@
 #include "client.h"
 #include "trafficlight.h"
+#include "numpad.h"
 #include <QGridLayout>
 #include <QLabel>
 #include <QFont>
@@ -89,6 +90,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     //connectors
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
+    QObject::connect(keyboard, SIGNAL(clicked()), this, SLOT(onKeyboardClicked()));
     QObject::connect(sliderRuntime, SIGNAL(sliderMoved(int)), this, SLOT(onRuntimeChanged(int)));
     QObject::connect(sliderBandwidth, SIGNAL(sliderMoved(int)), this, SLOT(onBandwidthChanged(int)));
 
@@ -114,6 +116,12 @@ void Client::onStartButtonClicked()
 
     }
 
+}
+
+void Client::onKeyboardClicked()
+{
+    NumPad *keyboard = new NumPad();
+    keyboard->show();
 }
 
 void Client::onRuntimeChanged(int value)

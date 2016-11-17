@@ -31,6 +31,7 @@ signals:
 public slots:
     void onExitButtonClicked();
     void onStartButtonClicked();
+    void onKeyboardClicked();
     void onRuntimeChanged(int);
     void onBandwidthChanged(int);
 };
