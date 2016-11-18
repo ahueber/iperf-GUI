@@ -121,7 +121,7 @@ void Client::onStartButtonClicked()
 void Client::onKeyboardClicked()
 {
     NumPad *keyboard = new NumPad(this);
-    keyboard->show();
+    keyboard->showFullScreen();
 }
 
 void Client::onRuntimeChanged(int value)
