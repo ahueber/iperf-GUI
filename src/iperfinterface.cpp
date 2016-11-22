@@ -8,7 +8,9 @@ IperfInterface::IperfInterface(QString initialArguments) {
 }
 
 IperfInterface::~IperfInterface() {
-    this->terminate();
+    if (this->isOpen()) {
+        this->kill();
+    }
 }
 
 QStringList IperfInterface::parseArguments(QString arguments) {
@@ -29,6 +31,14 @@ void IperfInterface::setInitialArguments(QString initialArguments) {
     this->initialArguments = initialArguments;
 }
 
+void IperfInterface::setServerIsListening(bool serverIsListening) {
+    this->serverIsListening = serverIsListening;
+}
+
+bool IperfInterface::getIsServerListening() {
+    return this->serverIsListening;
+}
+
 void IperfInterface::run() {
     QStringList parsedArguments = this->parseArguments(this->initialArguments);
     this->start(IPERF_PATH_AND_FILENAME, parsedArguments);
@@ -40,10 +50,11 @@ void IperfInterface::processReadyReadStandardOutput() {
 
     if (rawOutput.contains(QRegExp(MSG_SERVER_LISTENING))) {
         this->serverIsListening = true;
+        emit this->serverStartedListening();
     }
 
     if (rawOutput.contains(QRegExp(MSG_CONNECTION_ESTABLISHED))) {
-        qDebug() << "Connected!";
+        emit this->connectionEstablished();
     }
 
     QStringList lines = rawOutput.split("\n");

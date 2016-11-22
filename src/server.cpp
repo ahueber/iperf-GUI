@@ -33,7 +33,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     //traffic light
     tl = new TrafficLight();
-    tl->setColor(TrafficLight::yellow);
+    tl->setColor(TrafficLight::red);
 
     //log window
     log = new QTextEdit();
@@ -50,35 +50,66 @@ Server::Server(QWidget *parent) : QWidget(parent)
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
 
     setLayout(layout);
+
+    // create iperf interface in server mode
+    this->iperfInterface = new IperfInterface("-s -u -p 5001");
+
+    // connect logging slot to log text field append signal
+    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(append(QString)));
+
+    // connect server started listening slot to set traffic light yellow signal
+    QObject::connect(this->iperfInterface, SIGNAL(serverStartedListening()), this, SLOT(onSetTrafficLightYellow()));
+
+    // connect server connection established slot to set traffic light green signal
+    QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this, SLOT(onSetTrafficLightGreen()));
 }
 
 void Server::onExitButtonClicked()
 {
+    // if server window was closed, kill the iperf interface server
+    this->iperfInterface->kill();
     this->close();
 }
 
 void Server::onStartButtonClicked()
 {
-    if(listening){
+    // clear the log text field
+    this->log->clear();
+
+    // check if iperf interface server is not already listening
+    if (!this->iperfInterface->getIsServerListening()) {
         tl->setColor(TrafficLight::green);
-        listening = false;
         startButton->setText("Stop");
 
-        QString longtext;
-        for(int i = 0; i < 100; i++){
-            longtext.append("[  4]  0.0- 1.0 sec   1.3 MBytes  10.0 Mbits/sec  0.209 ms    1/  894 (0.11%)\n ");
-        }
-
-
-        log->insertPlainText(longtext);
-    }else{
+        // run iperf interface in server mode
+        this->iperfInterface->run();
+    } else {
         tl->setColor(TrafficLight::red);
-        startButton->setText("Restart");
-        listening = true;
-        log->insertPlainText("terminated");
+        startButton->setText("Start");
+
+        // kill iperf interface server
+        this->iperfInterface->kill();
+
+        // set iperf interface server listening to false
+        this->iperfInterface->setServerIsListening(false);
+
+        // set traffic light to red
+        this->tl->setColor(TrafficLight::red);
     }
+
     QTextCursor c = log->textCursor();
     c.movePosition(QTextCursor::End);
     log->setTextCursor(c);
 }
 
+void Server::onSetTrafficLightRed() {
+    this->tl->setColor(TrafficLight::red);
+}
+
+void Server::onSetTrafficLightYellow() {
+    this->tl->setColor(TrafficLight::yellow);
+}
+
+void Server::onSetTrafficLightGreen() {
+    this->tl->setColor(TrafficLight::green);
+}

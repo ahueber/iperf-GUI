@@ -18,14 +18,16 @@ SOURCES += main.cpp \
     client.cpp \
     server.cpp \
     trafficlight.cpp \
-    numpad.cpp
+    numpad.cpp \
+    iperfinterface.cpp
 
 HEADERS  += \
     welcomescreen.h \
     client.h \
     server.h \
     trafficlight.h \
-    numpad.h
+    numpad.h \
+    iperfinterface.h
 
 RESOURCES += \
     ../images.qrc
