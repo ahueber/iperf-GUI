@@ -10,6 +10,8 @@
 #include <QDebug>
 #include <QTextCursor>
 #include <QComboBox>
+#include <QMap>
+#include <QDebug>
 
 Server::Server(QWidget *parent) : QWidget(parent)
 {
@@ -30,8 +32,6 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     //network interface selection
     networkInterface = new QComboBox();
-    networkInterface->addItem("eth0");
-    networkInterface->addItem("wlan0");
 
     //exit & start button
     QPushButton *exitButton = new QPushButton("Close");
@@ -60,6 +60,13 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     // create iperf interface in server mode
     this->iperfInterface = new IperfInterface("-s -u -p 5001");
+
+    // TODO: On change event for interface dropdown implementation
+    QMap<QString, QString> interfaces = this->iperfInterface->getNetworkInterfaces();
+    QMap<QString, QString>::iterator i;
+    for (i = interfaces.begin(); i != interfaces.end(); ++i) {
+        this->networkInterface->addItem(i.key());
+    }
 
     // connect logging slot to log text field append signal
     QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(append(QString)));
