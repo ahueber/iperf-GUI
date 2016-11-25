@@ -2,7 +2,9 @@
 #define IPERFINTERFACE_H
 
 #include <QObject>
+#include <QMap>
 #include <QProcess>
+#include <QtNetwork>
 #include <QString>
 #include <QStringList>
 #include <QByteArray>
@@ -32,6 +34,8 @@ public:
     QString getInitialArguments();
     void setServerIsListening(bool serverIsListening);
     bool getIsServerListening();
+
+    QMap<QString, QString> getNetworkInterfaces();
 
     void run();
 
