@@ -39,6 +39,19 @@ bool IperfInterface::getIsServerListening() {
     return this->serverIsListening;
 }
 
+QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
+    QMap<QString, QString> networkInterfaces;
+    foreach (const QNetworkInterface &interface, QNetworkInterface::allInterfaces()) {
+        QHostAddress address = interface.addressEntries().first().ip();
+        if (address != QHostAddress(QHostAddress::LocalHost)) {
+            if (!address.isNull()) {
+                networkInterfaces.insert(interface.name(), address.toString());
+            }
+        }
+    }
+    return networkInterfaces;
+}
+
 void IperfInterface::run() {
     QStringList parsedArguments = this->parseArguments(this->initialArguments);
     this->start(IPERF_PATH_AND_FILENAME, parsedArguments);
