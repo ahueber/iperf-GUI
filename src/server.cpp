@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include <QDebug>
 #include <QTextCursor>
+#include <QComboBox>
 
 Server::Server(QWidget *parent) : QWidget(parent)
 {
@@ -21,11 +22,16 @@ Server::Server(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     font.setPointSize(30);
 
-    QLabel *label = new QLabel("192.168.1.37");
+    QLabel *label = new QLabel("10.22.0.160");
     label->setScaledContents(true);
     label->setAlignment(Qt::AlignCenter);
     label->setFont(font);
     label->adjustSize();
+
+    //network interface selection
+    networkInterface = new QComboBox();
+    networkInterface->addItem("eth0");
+    networkInterface->addItem("wlan0");
 
     //exit & start button
     QPushButton *exitButton = new QPushButton("Close");
@@ -42,6 +48,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
     layout->addWidget(label, 0, 1);
+    layout->addWidget(networkInterface, 0, 2);
     layout->addWidget(log, 1, 1, 1, 2);
     layout->addWidget(exitButton, 2, 2);
     layout->addWidget(startButton, 2, 1);

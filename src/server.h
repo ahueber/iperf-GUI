@@ -7,6 +7,7 @@
 class TrafficLight;
 class QPushButton;
 class QTextEdit;
+class QComboBox;
 
 class Server : public QWidget
 {
@@ -18,6 +19,7 @@ private:
     TrafficLight *tl;
     QPushButton *startButton;
     QTextEdit *log;
+    QComboBox *networkInterface;
 
 public:
     explicit Server(QWidget *parent = 0);

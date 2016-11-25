@@ -41,7 +41,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     //data entry fields
     fieldIP = new QLineEdit();
     fieldIP->setFont(font);
-    fieldIP->setPlaceholderText("z.B. 192.168.1.37");
+    fieldIP->setPlaceholderText("z.B. 10.22.0.160");
 
     simplex = new QRadioButton("Simplex");
     simplex->setFont(font2);
