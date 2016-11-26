@@ -1,10 +1,18 @@
 #include "iperfinterface.h"
 
-IperfInterface::IperfInterface(QString initialArguments) {
+IperfInterface::IperfInterface(QString initialArguments, QString logPathAndFilename) {
     this->initialArguments = initialArguments;
+    this->logPathAndFilename = logPathAndFilename;
 
     this->setProcessChannelMode(QProcess::MergedChannels);
-    QObject::connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processReadyReadStandardOutput()));
+    //QObject::connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processReadyReadStandardOutput()));
+
+    this->logFile = new QFile(this->logPathAndFilename);
+    this->logFile->open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text);
+    this->logFile->close();
+
+    this->logFileWatcher = new QFileSystemWatcher(QStringList(this->logPathAndFilename));
+    QObject::connect(this->logFileWatcher, SIGNAL(fileChanged(QString)), this, SLOT(processFileChanged(QString)));
 }
 
 IperfInterface::~IperfInterface() {
@@ -13,14 +21,42 @@ IperfInterface::~IperfInterface() {
     }
 }
 
-QStringList IperfInterface::parseArguments(QString arguments) {
-    QStringList parsedArguments;
-    for (QString argument: arguments.split("-", QString::SkipEmptyParts)) {
-        if (argument.at(argument.length() - 1) == QString(" "))
-            argument = argument.left(argument.length() - 1);
-        parsedArguments << QString("-").append(argument);
+QStringList IperfInterface::parseCombinedArgString(const QString &program) {
+    QStringList args;
+    QString tmp;
+    int quoteCount = 0;
+    bool inQuote = false;
+    // handle quoting. tokens can be surrounded by double quotes
+    // "hello world". three consecutive double quotes represent
+    // the quote character itself.
+    for (int i = 0; i < program.size(); ++i) {
+        if (program.at(i) == QLatin1Char('"')) {
+            ++quoteCount;
+            if (quoteCount == 3) {
+                // third consecutive quote
+                quoteCount = 0;
+                tmp += program.at(i);
+            }
+            continue;
+        }
+        if (quoteCount) {
+            if (quoteCount == 1)
+                inQuote = !inQuote;
+            quoteCount = 0;
+        }
+        if (!inQuote && program.at(i).isSpace()) {
+            if (!tmp.isEmpty()) {
+                args += tmp;
+                tmp.clear();
+            }
+        }
+        else {
+            tmp += program.at(i);
+        }
     }
-    return parsedArguments;
+    if (!tmp.isEmpty())
+        args += tmp;
+    return args;
 }
 
 QString IperfInterface::getInitialArguments() {
@@ -30,6 +66,16 @@ QString IperfInterface::getInitialArguments() {
 void IperfInterface::setInitialArguments(QString initialArguments) {
     this->initialArguments = initialArguments;
 }
+
+QString IperfInterface::getLogPathAndFilename() {
+    return this->logPathAndFilename;
+}
+
+/*
+void IperfInterface::setLogPathAndFilename(QString logPathAndFilename) {
+    this->logPathAndFilename = logPathAndFilename;
+}
+*/
 
 void IperfInterface::setServerIsListening(bool serverIsListening) {
     this->serverIsListening = serverIsListening;
@@ -53,9 +99,9 @@ QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
 }
 
 void IperfInterface::run() {
-    QStringList parsedArguments = this->parseArguments(this->initialArguments);
+    QStringList parsedArguments = this->parseCombinedArgString(QString(this->initialArguments).append(" --logfile ").append(this->logPathAndFilename));
     this->start(IPERF_PATH_AND_FILENAME, parsedArguments);
-    this->waitForReadyRead();
+    //this->waitForReadyRead();
 }
 
 void IperfInterface::processReadyReadStandardOutput() {
@@ -74,4 +120,21 @@ void IperfInterface::processReadyReadStandardOutput() {
     foreach (QString line, lines) {
         emit this->logOutput(line);
     }
+}
+
+void IperfInterface::processFileChanged(const QString &) {
+    if (!this->logFile->open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    /*
+    QTextStream in(this->logFile);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        emit this->logOutput(line);
+    }
+    */
+
+    emit this->logOutput(this->logFile->readAll());
+
+    this->logFile->close();
 }

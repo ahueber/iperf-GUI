@@ -55,11 +55,12 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
+    QObject::connect(this->networkInterface, SIGNAL(currentTextChanged(QString)), this, SLOT(onNetworkInterfaceDropdownChanged()));
 
     setLayout(layout);
 
     // create iperf interface in server mode
-    this->iperfInterface = new IperfInterface("-s -u -p 5001");
+    this->iperfInterface = new IperfInterface("-s -p 5001");
 
     // TODO: On change event for interface dropdown implementation
     QMap<QString, QString> interfaces = this->iperfInterface->getNetworkInterfaces();
@@ -69,7 +70,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     }
 
     // connect logging slot to log text field append signal
-    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(append(QString)));
+    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(setText(QString)));
 
     // connect server started listening slot to set traffic light yellow signal
     QObject::connect(this->iperfInterface, SIGNAL(serverStartedListening()), this, SLOT(onSetTrafficLightYellow()));
@@ -114,6 +115,10 @@ void Server::onStartButtonClicked()
     QTextCursor c = log->textCursor();
     c.movePosition(QTextCursor::End);
     log->setTextCursor(c);
+}
+
+void Server::onNetworkInterfaceDropdownChanged() {
+
 }
 
 void Server::onSetTrafficLightRed() {

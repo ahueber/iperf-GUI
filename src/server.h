@@ -29,6 +29,7 @@ signals:
 public slots:
     void onExitButtonClicked();
     void onStartButtonClicked();
+    void onNetworkInterfaceDropdownChanged();
 
     // iperf interface slots
     void onSetTrafficLightRed();
