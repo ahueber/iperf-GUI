@@ -91,12 +91,52 @@ NumPad::NumPad(Client *c) : client(c)
 
 void NumPad::addString(QString str){
     QString text = panel->text();
-    if(text.size() > 0 && text.at(text.size()-1) != '.'){
-        text += str;
-    }else if (str != "."){
-        text += str;
+
+    QStringList segments = text.split(".");
+    int segmentCount = segments.size();
+    QString lastSegment = segments.at(segmentCount - 1);
+
+    // decimal point
+    if (str == ".") {
+
+        // max. 4 segments
+        if (segmentCount > 3) {
+            // do nothing
+        } else if (lastSegment == "") {
+            text += "0" + str;
+        } else {
+            text += str;
+        }
+
+    // number
+    } else {
+
+        if (lastSegment.size() > 2) {
+            if (segmentCount == 4) {
+                // do nothing
+            } else {
+                text += "." + str;
+            }
+        } else {
+            text += str;
+        }
+
     }
-    panel->setText(text);
+
+    // iterate through segments and validat/filter segment values
+    QStringList strlist = text.split(".");
+    for (int i = 0; i < strlist.size(); i++) {
+        QString str = strlist.at(i);
+        if (str.toInt() > 255) {
+            strlist.replace(i, "255");
+        } else if (str.toInt() > 0) {
+            strlist.replace(i, str.remove(QRegExp("^[0]*")));
+        } else {
+           strlist.replace(i, "0");
+        }
+    }
+
+    panel->setText(strlist.join("."));
 }
 
 void NumPad::onButtonZeroClicked()
