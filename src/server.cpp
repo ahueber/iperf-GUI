@@ -24,11 +24,11 @@ Server::Server(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     font.setPointSize(30);
 
-    QLabel *label = new QLabel("10.22.0.160");
-    label->setScaledContents(true);
-    label->setAlignment(Qt::AlignCenter);
-    label->setFont(font);
-    label->adjustSize();
+    this->networkInterfaceAddress = new QLabel("10.22.0.160");
+    this->networkInterfaceAddress->setScaledContents(true);
+    this->networkInterfaceAddress->setAlignment(Qt::AlignCenter);
+    this->networkInterfaceAddress->setFont(font);
+    this->networkInterfaceAddress->adjustSize();
 
     //network interface selection
     networkInterface = new QComboBox();
@@ -47,7 +47,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     log->setPlaceholderText("Log Ausgabe:");
 
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
-    layout->addWidget(label, 0, 1);
+    layout->addWidget(this->networkInterfaceAddress, 0, 1);
     layout->addWidget(networkInterface, 0, 2);
     layout->addWidget(log, 1, 1, 1, 2);
     layout->addWidget(exitButton, 2, 2);
@@ -55,7 +55,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
 
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
-    QObject::connect(this->networkInterface, SIGNAL(currentTextChanged(QString)), this, SLOT(onNetworkInterfaceDropdownChanged()));
+    QObject::connect(this->networkInterface, SIGNAL(currentIndexChanged(int)), this, SLOT(onNetworkInterfaceDropdownChanged(int)));
 
     setLayout(layout);
 
@@ -63,9 +63,9 @@ Server::Server(QWidget *parent) : QWidget(parent)
     this->iperfInterface = new IperfInterface("-s -p 5001");
 
     // TODO: On change event for interface dropdown implementation
-    QMap<QString, QString> interfaces = this->iperfInterface->getNetworkInterfaces();
+    this->availableNetworkInterfaces = this->iperfInterface->getNetworkInterfaces();
     QMap<QString, QString>::iterator i;
-    for (i = interfaces.begin(); i != interfaces.end(); ++i) {
+    for (i = this->availableNetworkInterfaces.begin(); i != this->availableNetworkInterfaces.end(); ++i) {
         this->networkInterface->addItem(i.key());
     }
 
@@ -117,8 +117,10 @@ void Server::onStartButtonClicked()
     log->setTextCursor(c);
 }
 
-void Server::onNetworkInterfaceDropdownChanged() {
-
+void Server::onNetworkInterfaceDropdownChanged(const int &index) {
+    QString selectedNetworkInterfaceName = this->networkInterface->itemText(index);
+    QString selectedNetworkInterfaceAddress = this->availableNetworkInterfaces.value(selectedNetworkInterfaceName);
+    this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
 }
 
 void Server::onSetTrafficLightRed() {

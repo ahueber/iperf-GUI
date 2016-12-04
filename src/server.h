@@ -8,6 +8,7 @@ class TrafficLight;
 class QPushButton;
 class QTextEdit;
 class QComboBox;
+class QLabel;
 
 class Server : public QWidget
 {
@@ -20,6 +21,8 @@ private:
     QPushButton *startButton;
     QTextEdit *log;
     QComboBox *networkInterface;
+    QLabel *networkInterfaceAddress;
+    QMap<QString, QString> availableNetworkInterfaces;
 
 public:
     explicit Server(QWidget *parent = 0);
@@ -29,7 +32,7 @@ signals:
 public slots:
     void onExitButtonClicked();
     void onStartButtonClicked();
-    void onNetworkInterfaceDropdownChanged();
+    void onNetworkInterfaceDropdownChanged(const int &);
 
     // iperf interface slots
     void onSetTrafficLightRed();
