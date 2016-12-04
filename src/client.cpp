@@ -8,9 +8,12 @@
 #include <QLineEdit>
 #include <QRadioButton>
 #include <QSlider>
+#include <QSettings>
 
 Client::Client(QWidget *parent) : QWidget(parent)
 {
+    QSettings settings;
+
     setFixedSize(800, 480);
     QGridLayout *layout = new QGridLayout();
     listening = true;
@@ -91,8 +94,12 @@ Client::Client(QWidget *parent) : QWidget(parent)
     QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
     QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
     QObject::connect(keyboard, SIGNAL(clicked()), this, SLOT(onKeyboardClicked()));
-    QObject::connect(sliderRuntime, SIGNAL(sliderMoved(int)), this, SLOT(onRuntimeChanged(int)));
-    QObject::connect(sliderBandwidth, SIGNAL(sliderMoved(int)), this, SLOT(onBandwidthChanged(int)));
+    QObject::connect(sliderRuntime, SIGNAL(valueChanged(int)), this, SLOT(onRuntimeChanged(int)));
+    QObject::connect(sliderBandwidth, SIGNAL(valueChanged(int)), this, SLOT(onBandwidthChanged(int)));
+
+    // set default form values (and trigger "valueChanged" signal automatically)
+    sliderRuntime->setValue(settings.value("default.runtime").toInt());
+    sliderBandwidth->setValue(settings.value("default.bandwidth").toInt());
 
     setLayout(layout);
 }
@@ -143,4 +150,3 @@ QString Client::getIP()
 {
     return fieldIP->text();
 }
-
