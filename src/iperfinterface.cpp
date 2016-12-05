@@ -88,12 +88,24 @@ bool IperfInterface::getIsServerListening() {
 QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
     QMap<QString, QString> networkInterfaces;
     foreach (const QNetworkInterface &interface, QNetworkInterface::allInterfaces()) {
-        qDebug() << interface;
+        if (interface.addressEntries().size() > 0) {
+            try {
+                QString interfaceName = interface.name();
+                QHostAddress interfaceAddress = interface.addressEntries().first().ip();
+
+                if (!interfaceAddress.isNull() && !interfaceAddress.isLoopback() && interfaceAddress.protocol() == QAbstractSocket::IPv4Protocol) {
+                    networkInterfaces.insert(interfaceName, interfaceAddress.toString());
+                }
+            } catch (std::exception &e) {
+                qDebug() << "Could not fetch first ip address of network interface " << interface.name();
+            }
+        }
+        /*
+        qDebug() << interface.addressEntries().first().ip().isLoopback();
         // only use network interfaces which are up and running
         if (interface.IsUp && interface.IsRunning) {
             // get interface name
             QString interfaceName = interface.name();
-
             // exclude loopback interface
             if (interfaceName != "lo") {
                 // check if there are addresses assigned
@@ -111,6 +123,7 @@ QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
                 }
             }
         }
+        */
     }
     return networkInterfaces;
 }
