@@ -90,15 +90,20 @@ QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
     foreach (const QNetworkInterface &interface, QNetworkInterface::allInterfaces()) {
         // only use network interfaces which are up and running
         if (interface.IsUp && interface.IsRunning) {
+            // get interface name
+            QString interfaceName = interface.name();
+
             // exclude loopback interface
-            if (interface.name() != "lo") {
+            if (interfaceName != "lo") {
                 // check if there are addresses assigned
                 if (interface.addressEntries().size() > 0) {
                     // get the primary ip address of the network interface
                     try {
-                        QString interfaceName = interface.name();
-                        QString interfaceAddress = interface.addressEntries().first().ip().toString();
-                        networkInterfaces.insert(interfaceName, interfaceAddress);
+                        // filter ipv4 addresses
+                        QHostAddress interfaceAddress = interface.addressEntries().first().ip();
+                        if (interfaceAddress.protocol() == QAbstractSocket::IPv4Protocol) {
+                            networkInterfaces.insert(interfaceName, interfaceAddress.toString());
+                        }
                     } catch (std::exception &e) {
                         qDebug() << "Could not fetch first ip address of network interface " << interface.name();
                     }
