@@ -88,6 +88,7 @@ bool IperfInterface::getIsServerListening() {
 QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
     QMap<QString, QString> networkInterfaces;
     foreach (const QNetworkInterface &interface, QNetworkInterface::allInterfaces()) {
+        qDebug() << interface;
         // only use network interfaces which are up and running
         if (interface.IsUp && interface.IsRunning) {
             // get interface name
