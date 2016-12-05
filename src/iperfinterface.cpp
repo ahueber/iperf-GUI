@@ -90,12 +90,8 @@ QMap<QString, QString> IperfInterface::getNetworkInterfaces() {
     try {
         foreach (const QNetworkInterface &interface, QNetworkInterface::allInterfaces()) {
             foreach (const QNetworkAddressEntry &interfaceAddressEntry, interface.addressEntries()) {
-                try {
-                    if (!interfaceAddressEntry.ip().isNull() && !interfaceAddressEntry.ip().isLoopback() && interfaceAddressEntry.ip().protocol() == QAbstractSocket::IPv4Protocol) {
-                        networkInterfaces.insert(interface.name(), interfaceAddressEntry.ip().toString());
-                    }
-                } catch (std::exception &e) {
-                    qDebug() << "Could not fetch first ip address of network interface " << interface.name();
+                if (!interfaceAddressEntry.ip().isNull() && !interfaceAddressEntry.ip().isLoopback() && interfaceAddressEntry.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+                    networkInterfaces.insert(interface.name(), interfaceAddressEntry.ip().toString());
                 }
             }
         }
