@@ -1,0 +1,175 @@
+\hypertarget{class_iperf_interface}{}\section{Iperf\+Interface Klassenreferenz}
+\label{class_iperf_interface}\index{Iperf\+Interface@{Iperf\+Interface}}
+
+
+Die Iperf\+Interface-\/\+Klasse.  
+
+
+
+
+{\ttfamily \#include $<$iperfinterface.\+h$>$}
+
+Klassendiagramm für Iperf\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_iperf_interface}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_iperf_interface_a28845faae84e19418b0c2006785d93a7}{}\label{class_iperf_interface_a28845faae84e19418b0c2006785d93a7} 
+void \hyperlink{class_iperf_interface_a28845faae84e19418b0c2006785d93a7}{process\+Ready\+Read\+Standard\+Output} ()
+\begin{DoxyCompactList}\small\item\em Bei der Bereitschaft des Prozesses aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
+\hypertarget{class_iperf_interface_a9d82924212dac8a3cdd5ac074a99ec88}{}\label{class_iperf_interface_a9d82924212dac8a3cdd5ac074a99ec88} 
+void \hyperlink{class_iperf_interface_a9d82924212dac8a3cdd5ac074a99ec88}{process\+File\+Changed} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em Beim Ändern der Logdatei aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signale}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_iperf_interface_a8a0e602fe96d401f2ce61cf71f99d8da}{}\label{class_iperf_interface_a8a0e602fe96d401f2ce61cf71f99d8da} 
+void \hyperlink{class_iperf_interface_a8a0e602fe96d401f2ce61cf71f99d8da}{log\+Output} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em Signal wenn der Output geloggt wird. \end{DoxyCompactList}\item 
+\hypertarget{class_iperf_interface_a7263bbb7d6ee2285331b030d36efe6c6}{}\label{class_iperf_interface_a7263bbb7d6ee2285331b030d36efe6c6} 
+void \hyperlink{class_iperf_interface_a7263bbb7d6ee2285331b030d36efe6c6}{server\+Started\+Listening} ()
+\begin{DoxyCompactList}\small\item\em Signal wenn Start des Servers abgeschlossen ist. \end{DoxyCompactList}\item 
+\hypertarget{class_iperf_interface_a51b38e37b0b7d1feb8ba02e34d7a2336}{}\label{class_iperf_interface_a51b38e37b0b7d1feb8ba02e34d7a2336} 
+void \hyperlink{class_iperf_interface_a51b38e37b0b7d1feb8ba02e34d7a2336}{connection\+Established} ()
+\begin{DoxyCompactList}\small\item\em Signal wenn die Verbindung zwischen \hyperlink{class_client}{Client} und \hyperlink{class_server}{Server} aufgebaut ist. \end{DoxyCompactList}\item 
+\hypertarget{class_iperf_interface_a58a0afd22191a9e63d6fd8e8a047ce5b}{}\label{class_iperf_interface_a58a0afd22191a9e63d6fd8e8a047ce5b} 
+void \hyperlink{class_iperf_interface_a58a0afd22191a9e63d6fd8e8a047ce5b}{connection\+Closed} ()
+\begin{DoxyCompactList}\small\item\em Signal wenn die Verbindung zwischen \hyperlink{class_client}{Client} und \hyperlink{class_server}{Server} geschlossen wurde. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_iperf_interface_a29d7d64376a399ce741da79c1a9c544c}{Iperf\+Interface} (Q\+String initial\+Arguments=Q\+String(), Q\+String log\+Path\+And\+Filename=Q\+String(\char`\"{}/tmp/iperf3.\+log\char`\"{}))
+\begin{DoxyCompactList}\small\item\em Der Iperf\+Interface-\/\+Konstruktor. \end{DoxyCompactList}\item 
+void \hyperlink{class_iperf_interface_a4aa4821c81d91e93afe3f5ae2c24bacf}{set\+Initial\+Arguments} (Q\+String initial\+Arguments)
+\begin{DoxyCompactList}\small\item\em Setzt die Argumente-\/\+Liste. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_iperf_interface_a93b05412f77de1fc4cb57e5b03f378dd}{get\+Initial\+Arguments} ()
+\begin{DoxyCompactList}\small\item\em Gibt die Argumente-\/\+Liste als String zurück. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_iperf_interface_a62e1dad7ad79df8307384b76a14f6eed}{get\+Log\+Path\+And\+Filename} ()
+\begin{DoxyCompactList}\small\item\em Gibt den Pfad zur Logdatei zurück. \end{DoxyCompactList}\item 
+void \hyperlink{class_iperf_interface_a012e33d4dcb33373c302cf1282b3056b}{set\+Server\+Is\+Listening} (bool server\+Is\+Listening)
+\begin{DoxyCompactList}\small\item\em Setzt den \hyperlink{class_server}{Server} auf \char`\"{}\+Listening\char`\"{}. \end{DoxyCompactList}\item 
+bool \hyperlink{class_iperf_interface_a68b6291bcbf2ad413f4efa00ebf9b66d}{get\+Is\+Server\+Listening} ()
+\begin{DoxyCompactList}\small\item\em Gibt zurück ob der \hyperlink{class_server}{Server} auf \char`\"{}\+Listening\char`\"{} gesetzt ist. \end{DoxyCompactList}\item 
+Q\+Map$<$ Q\+String, Q\+String $>$ \hyperlink{class_iperf_interface_a81faf533ca54a96e9fa33006d50830bd}{get\+Network\+Interfaces} ()
+\begin{DoxyCompactList}\small\item\em Gibt die Netzwerkschnittstellen als Map zurück. \end{DoxyCompactList}\item 
+\hypertarget{class_iperf_interface_a0f982e150bc78c9d7413be362a9c5bfe}{}\label{class_iperf_interface_a0f982e150bc78c9d7413be362a9c5bfe} 
+void \hyperlink{class_iperf_interface_a0f982e150bc78c9d7413be362a9c5bfe}{run} ()
+\begin{DoxyCompactList}\small\item\em Startet das Kommandozeilenprogramm iperf3. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Die Iperf\+Interface-\/\+Klasse. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\hypertarget{class_iperf_interface_a29d7d64376a399ce741da79c1a9c544c}{}\label{class_iperf_interface_a29d7d64376a399ce741da79c1a9c544c} 
+\index{Iperf\+Interface@{Iperf\+Interface}!Iperf\+Interface@{Iperf\+Interface}}
+\index{Iperf\+Interface@{Iperf\+Interface}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{Iperf\+Interface()}{IperfInterface()}}
+{\footnotesize\ttfamily Iperf\+Interface\+::\+Iperf\+Interface (\begin{DoxyParamCaption}\item[{Q\+String}]{initial\+Arguments = {\ttfamily QString()},  }\item[{Q\+String}]{log\+Path\+And\+Filename = {\ttfamily QString(\char`\"{}/tmp/iperf3.log\char`\"{})} }\end{DoxyParamCaption})}
+
+
+
+Der Iperf\+Interface-\/\+Konstruktor. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em initial\+Arguments} & Die Argumente-\/\+Liste, welche an das Kommandozeilenprogramm übermittelt werden. \\
+\hline
+{\em log\+Path\+And\+Filename} & Der Pfad zur Logdatei. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\hypertarget{class_iperf_interface_a93b05412f77de1fc4cb57e5b03f378dd}{}\label{class_iperf_interface_a93b05412f77de1fc4cb57e5b03f378dd} 
+\index{Iperf\+Interface@{Iperf\+Interface}!get\+Initial\+Arguments@{get\+Initial\+Arguments}}
+\index{get\+Initial\+Arguments@{get\+Initial\+Arguments}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{get\+Initial\+Arguments()}{getInitialArguments()}}
+{\footnotesize\ttfamily Q\+String Iperf\+Interface\+::get\+Initial\+Arguments (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gibt die Argumente-\/\+Liste als String zurück. 
+
+\begin{DoxyReturn}{Rückgabe}
+Die Argumente-\/\+Liste als String. 
+\end{DoxyReturn}
+\hypertarget{class_iperf_interface_a68b6291bcbf2ad413f4efa00ebf9b66d}{}\label{class_iperf_interface_a68b6291bcbf2ad413f4efa00ebf9b66d} 
+\index{Iperf\+Interface@{Iperf\+Interface}!get\+Is\+Server\+Listening@{get\+Is\+Server\+Listening}}
+\index{get\+Is\+Server\+Listening@{get\+Is\+Server\+Listening}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{get\+Is\+Server\+Listening()}{getIsServerListening()}}
+{\footnotesize\ttfamily bool Iperf\+Interface\+::get\+Is\+Server\+Listening (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gibt zurück ob der \hyperlink{class_server}{Server} auf \char`\"{}\+Listening\char`\"{} gesetzt ist. 
+
+\begin{DoxyReturn}{Rückgabe}
+Den Status \char`\"{}\+Listening\char`\"{} 
+\end{DoxyReturn}
+\hypertarget{class_iperf_interface_a62e1dad7ad79df8307384b76a14f6eed}{}\label{class_iperf_interface_a62e1dad7ad79df8307384b76a14f6eed} 
+\index{Iperf\+Interface@{Iperf\+Interface}!get\+Log\+Path\+And\+Filename@{get\+Log\+Path\+And\+Filename}}
+\index{get\+Log\+Path\+And\+Filename@{get\+Log\+Path\+And\+Filename}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{get\+Log\+Path\+And\+Filename()}{getLogPathAndFilename()}}
+{\footnotesize\ttfamily Q\+String Iperf\+Interface\+::get\+Log\+Path\+And\+Filename (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gibt den Pfad zur Logdatei zurück. 
+
+\begin{DoxyReturn}{Rückgabe}
+Der Pfad als String. 
+\end{DoxyReturn}
+\hypertarget{class_iperf_interface_a81faf533ca54a96e9fa33006d50830bd}{}\label{class_iperf_interface_a81faf533ca54a96e9fa33006d50830bd} 
+\index{Iperf\+Interface@{Iperf\+Interface}!get\+Network\+Interfaces@{get\+Network\+Interfaces}}
+\index{get\+Network\+Interfaces@{get\+Network\+Interfaces}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{get\+Network\+Interfaces()}{getNetworkInterfaces()}}
+{\footnotesize\ttfamily Q\+Map$<$ Q\+String, Q\+String $>$ Iperf\+Interface\+::get\+Network\+Interfaces (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gibt die Netzwerkschnittstellen als Map zurück. 
+
+\begin{DoxyReturn}{Rückgabe}
+Die Netzwerkschnittstellen 
+\end{DoxyReturn}
+\hypertarget{class_iperf_interface_a4aa4821c81d91e93afe3f5ae2c24bacf}{}\label{class_iperf_interface_a4aa4821c81d91e93afe3f5ae2c24bacf} 
+\index{Iperf\+Interface@{Iperf\+Interface}!set\+Initial\+Arguments@{set\+Initial\+Arguments}}
+\index{set\+Initial\+Arguments@{set\+Initial\+Arguments}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{set\+Initial\+Arguments()}{setInitialArguments()}}
+{\footnotesize\ttfamily void Iperf\+Interface\+::set\+Initial\+Arguments (\begin{DoxyParamCaption}\item[{Q\+String}]{initial\+Arguments }\end{DoxyParamCaption})}
+
+
+
+Setzt die Argumente-\/\+Liste. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em initial\+Arguments} & Die Argumente-\/\+Liste als String. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_iperf_interface_a012e33d4dcb33373c302cf1282b3056b}{}\label{class_iperf_interface_a012e33d4dcb33373c302cf1282b3056b} 
+\index{Iperf\+Interface@{Iperf\+Interface}!set\+Server\+Is\+Listening@{set\+Server\+Is\+Listening}}
+\index{set\+Server\+Is\+Listening@{set\+Server\+Is\+Listening}!Iperf\+Interface@{Iperf\+Interface}}
+\subsubsection{\texorpdfstring{set\+Server\+Is\+Listening()}{setServerIsListening()}}
+{\footnotesize\ttfamily void Iperf\+Interface\+::set\+Server\+Is\+Listening (\begin{DoxyParamCaption}\item[{bool}]{server\+Is\+Listening }\end{DoxyParamCaption})}
+
+
+
+Setzt den \hyperlink{class_server}{Server} auf \char`\"{}\+Listening\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em server\+Is\+Listening} & \\
+\hline
+\end{DoxyParams}
+
+
+Die Dokumentation für diese Klasse wurde erzeugt aufgrund der Dateien\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{iperfinterface_8h}{iperfinterface.\+h}\item 
+src/iperfinterface.\+cpp\end{DoxyCompactItemize}

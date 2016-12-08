@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['server',['Server',['../class_server.html',1,'']]],
-  ['setip',['setIP',['../class_client.html#a9699e2db43beff88b4694208c54c1b7f',1,'Client']]]
+  ['numpad',['NumPad',['../class_num_pad.html',1,'NumPad'],['../class_num_pad.html#ac35bfd6bb99a182c9073d80a09f3baf9',1,'NumPad::NumPad()']]],
+  ['numpad_2eh',['numpad.h',['../numpad_8h.html',1,'']]]
 ];

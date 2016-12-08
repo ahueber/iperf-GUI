@@ -1,29 +1,90 @@
-\hypertarget{class_server}{}\section{Server Class Reference}
+\hypertarget{class_server}{}\section{Server Klassenreferenz}
 \label{class_server}\index{Server@{Server}}
-Inheritance diagram for Server\+:\begin{figure}[H]
+
+
+Die Server-\/\+Klasse.  
+
+
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+Klassendiagramm für Server\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{class_server}
 \end{center}
 \end{figure}
-\subsection*{Public Slots}
+\subsection*{Öffentliche Slots}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{class_server_a99f9b2f3521fb22772a61baf4f3c7bdc}{}\label{class_server_a99f9b2f3521fb22772a61baf4f3c7bdc} 
-void {\bfseries on\+Exit\+Button\+Clicked} ()
-\item 
+void \hyperlink{class_server_a99f9b2f3521fb22772a61baf4f3c7bdc}{on\+Exit\+Button\+Clicked} ()
+\begin{DoxyCompactList}\small\item\em Beim Klicken des Schliessen-\/\+Button aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
 \hypertarget{class_server_abe8ac23afc4d282f89ec9fac8e7bf7f3}{}\label{class_server_abe8ac23afc4d282f89ec9fac8e7bf7f3} 
-void {\bfseries on\+Start\+Button\+Clicked} ()
-\end{DoxyCompactItemize}
-\subsection*{Public Member Functions}
+void \hyperlink{class_server_abe8ac23afc4d282f89ec9fac8e7bf7f3}{on\+Start\+Button\+Clicked} ()
+\begin{DoxyCompactList}\small\item\em Beim Klicken des Starten-\/\+Button aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
+\hypertarget{class_server_abe493e7f3249149eea185fed02a06803}{}\label{class_server_abe493e7f3249149eea185fed02a06803} 
+void \hyperlink{class_server_abe493e7f3249149eea185fed02a06803}{on\+Network\+Interface\+Dropdown\+Changed} (const int \&)
+\begin{DoxyCompactList}\small\item\em Beim Wechseln des Dropdown für das Netzwerk-\/\+Interface aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
+\hypertarget{class_server_ac32ca0a80f4f1c8f4ec0f1f8db113efa}{}\label{class_server_ac32ca0a80f4f1c8f4ec0f1f8db113efa} 
+void \hyperlink{class_server_ac32ca0a80f4f1c8f4ec0f1f8db113efa}{set\+Cursor} ()
+\begin{DoxyCompactList}\small\item\em Setzt den Cursor im Feld für die Logausgabe. \end{DoxyCompactList}\item 
+void \hyperlink{class_server_a08efa8bc9e0445b13be2af5b6a3037b2}{on\+Process\+State\+Changed} (const Q\+Process\+::\+Process\+State \&new\+State)
+\begin{DoxyCompactList}\small\item\em Beim Ändern des Prozessstatus des Netzwerk-\/\+Interface aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
+\hypertarget{class_server_a6e9f425b8fc676a224daf08b2f8cc81c}{}\label{class_server_a6e9f425b8fc676a224daf08b2f8cc81c} 
+void \hyperlink{class_server_a6e9f425b8fc676a224daf08b2f8cc81c}{on\+Connection\+Established} ()
+\begin{DoxyCompactList}\small\item\em Beim Aufbauen der Netzwerk-\/\+Verbindung aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\item 
+\hypertarget{class_server_acd7ae4112f7be04a194781a1fb7d4e38}{}\label{class_server_acd7ae4112f7be04a194781a1fb7d4e38} 
+void \hyperlink{class_server_acd7ae4112f7be04a194781a1fb7d4e38}{on\+Connection\+Closed} ()
+\begin{DoxyCompactList}\small\item\em Beim Schliessen der Netzwerk-\/\+Verbindung aufgerufene Handler-\/\+Methode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
+\hyperlink{class_server_a0bf03b27b29ae4b969ec903f95041a17}{Server} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Der Server-\/\+Konstruktor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Die Server-\/\+Klasse. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
 \hypertarget{class_server_a0bf03b27b29ae4b969ec903f95041a17}{}\label{class_server_a0bf03b27b29ae4b969ec903f95041a17} 
-{\bfseries Server} (Q\+Widget $\ast$parent=0)
-\end{DoxyCompactItemize}
+\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\subsubsection{\texorpdfstring{Server()}{Server()}}
+{\footnotesize\ttfamily Server\+::\+Server (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+
+Der Server-\/\+Konstruktor. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em parent} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\hypertarget{class_server_a08efa8bc9e0445b13be2af5b6a3037b2}{}\label{class_server_a08efa8bc9e0445b13be2af5b6a3037b2} 
+\index{Server@{Server}!on\+Process\+State\+Changed@{on\+Process\+State\+Changed}}
+\index{on\+Process\+State\+Changed@{on\+Process\+State\+Changed}!Server@{Server}}
+\subsubsection{\texorpdfstring{on\+Process\+State\+Changed}{onProcessStateChanged}}
+{\footnotesize\ttfamily void Server\+::on\+Process\+State\+Changed (\begin{DoxyParamCaption}\item[{const Q\+Process\+::\+Process\+State \&}]{new\+State }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Beim Ändern des Prozessstatus des Netzwerk-\/\+Interface aufgerufene Handler-\/\+Methode. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em new\+State} & \\
+\hline
+\end{DoxyParams}
+
+
+Die Dokumentation für diese Klasse wurde erzeugt aufgrund der Dateien\+:\begin{DoxyCompactItemize}
 \item 
-src/server.\+h\item 
+src/\hyperlink{server_8h}{server.\+h}\item 
 src/server.\+cpp\end{DoxyCompactItemize}

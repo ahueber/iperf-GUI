@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trafficlight',['TrafficLight',['../class_traffic_light.html',1,'']]]
+  ['server',['Server',['../class_server.html',1,'']]]
 ];
