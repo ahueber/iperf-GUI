@@ -1,8 +1,8 @@
 /**
  * @file main.cpp
- * @brief The main file of this project.
+ * @brief Die main-Datei dieses Projekts.
  *
- * This is the main file and entry script of the project "iperf GUI".
+ * Das ist die Hauptdatei und Eingangsscript des Projekt "iperf GUI".
  *
  * @author Andreas Hueber
  * @author Thomas Breuss
@@ -15,9 +15,9 @@
 #include <QFile>
 
 /**
- * @brief main
- * @param argc
- * @param argv
+ * @brief Die main-Methode für das Projekt.
+ * @param argc Der Grösse des Argumente-Arrays
+ * @param argv Das Argumente-Array
  * @return
  */
 int main(int argc, char *argv[])
