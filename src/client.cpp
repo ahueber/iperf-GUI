@@ -68,8 +68,8 @@ Client::Client(QWidget *parent) : QWidget(parent)
     sliderBandwidth->setRange(1, 100);
 
     //buttons
-    QPushButton *exitButton = new QPushButton("Close");
-    startButton = new QPushButton("Start");
+    QPushButton *exitButton = new QPushButton("Schliessen");
+    startButton = new QPushButton("Starten");
     QPushButton *keyboard = new QPushButton("...");
     keyboard->setFixedWidth(30);
 
@@ -118,7 +118,7 @@ void Client::onStartButtonClicked()
 
     }else{
         tl->setColor(TrafficLight::red);
-        startButton->setText("Restart");
+        startButton->setText("Fortsetzen");
         listening = true;
 
     }

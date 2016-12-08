@@ -34,7 +34,7 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
     buttonsLayout->setAlignment(Qt::AlignCenter);
 
     //create exit button
-    QPushButton *exitButton = new QPushButton("Exit");
+    QPushButton *exitButton = new QPushButton("Beenden");
     exitButton->setFont(font);
 
     //connect buttons

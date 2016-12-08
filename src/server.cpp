@@ -28,8 +28,8 @@ Server::Server(QWidget *parent) : QWidget(parent)
     label->adjustSize();
 
     //exit & start button
-    QPushButton *exitButton = new QPushButton("Close");
-    startButton = new QPushButton("Start");
+    QPushButton *exitButton = new QPushButton("Schliessen");
+    startButton = new QPushButton("Starten");
 
     //traffic light
     tl = new TrafficLight();
