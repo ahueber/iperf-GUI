@@ -4,9 +4,14 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QIcon>
+#include <QDebug>
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 {
+    //window icon test
+    //setWindowIcon(QIcon(":/icon/images/icon.png"));
+
 
     setFixedSize(800, 480);
 
@@ -34,7 +39,7 @@ WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
     buttonsLayout->setAlignment(Qt::AlignCenter);
 
     //create exit button
-    QPushButton *exitButton = new QPushButton("Exit");
+    QPushButton *exitButton = new QPushButton("Beenden");
     exitButton->setFont(font);
 
     //connect buttons

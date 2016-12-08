@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 CONFIG   += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -18,14 +18,16 @@ SOURCES += main.cpp \
     client.cpp \
     server.cpp \
     trafficlight.cpp \
-    numpad.cpp
+    numpad.cpp \
+    iperfinterface.cpp
 
 HEADERS  += \
     welcomescreen.h \
     client.h \
     server.h \
     trafficlight.h \
-    numpad.h
+    numpad.h \
+    iperfinterface.h
 
 RESOURCES += \
     ../images.qrc

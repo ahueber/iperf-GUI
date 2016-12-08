@@ -35,7 +35,7 @@ NumPad::NumPad(Client *c) : client(c)
     btn8 = new QPushButton("8");
     btn9 = new QPushButton("9");
     btnDot = new QPushButton(".");
-    btnDone = new QPushButton("Done");
+    btnDone = new QPushButton("Fertig");
     btnBksp = new QPushButton("←");
 
     buttonList.append(btn0);

@@ -44,7 +44,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     //data entry fields
     fieldIP = new QLineEdit();
     fieldIP->setFont(font);
-    fieldIP->setPlaceholderText("z.B. 192.168.1.37");
+    fieldIP->setPlaceholderText("z.B. 10.22.0.160");
 
     simplex = new QRadioButton("Simplex");
     simplex->setFont(font2);
@@ -68,8 +68,8 @@ Client::Client(QWidget *parent) : QWidget(parent)
     sliderBandwidth->setRange(1, 100);
 
     //buttons
-    QPushButton *exitButton = new QPushButton("Close");
-    startButton = new QPushButton("Start");
+    QPushButton *exitButton = new QPushButton("Schliessen");
+    startButton = new QPushButton("Starten");
     QPushButton *keyboard = new QPushButton("...");
     keyboard->setFixedWidth(30);
 
@@ -118,7 +118,7 @@ void Client::onStartButtonClicked()
 
     }else{
         tl->setColor(TrafficLight::red);
-        startButton->setText("Restart");
+        startButton->setText("Fortsetzen");
         listening = true;
 
     }
