@@ -4,4 +4,7 @@
         <file>images/tl_red.png</file>
         <file>images/tl_yellow.png</file>
     </qresource>
+    <qresource prefix="/icon">
+        <file>images/icon.png</file>
+    </qresource>
 </RCC>

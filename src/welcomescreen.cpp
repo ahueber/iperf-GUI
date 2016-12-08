@@ -4,9 +4,11 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QIcon>
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 {
+    setWindowIcon(QIcon(":/icon/images/icon.png"));
 
     setFixedSize(800, 480);
 
