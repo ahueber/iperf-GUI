@@ -5,10 +5,12 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QIcon>
+#include <QDebug>
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 {
     setWindowIcon(QIcon(":/icon/images/icon.png"));
+    qDebug()<<this->windowIcon();
 
     setFixedSize(800, 480);
 

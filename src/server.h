@@ -2,6 +2,7 @@
 #define SERVER_H
 
 #include <QWidget>
+#include <QTextCursor>
 #include "iperfinterface.h"
 
 class TrafficLight;
@@ -23,6 +24,7 @@ private:
     QComboBox *networkInterface;
     QLabel *networkInterfaceAddress;
     QMap<QString, QString> availableNetworkInterfaces;
+    QTextCursor c;
 
     void setIsRunning();
     void setIsNotRunning();
@@ -37,6 +39,7 @@ public slots:
     void onExitButtonClicked();
     void onStartButtonClicked();
     void onNetworkInterfaceDropdownChanged(const int &);
+    void setCursor();
 
     // iperf interface slots
     void onProcessStateChanged(const QProcess::ProcessState &newState);

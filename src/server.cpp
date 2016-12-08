@@ -44,6 +44,7 @@ Server::Server(QWidget *parent) : QWidget(parent) {
     log = new QTextEdit();
     log->setReadOnly(true);
     log->setPlaceholderText("iperf3 Log output");
+    c = log->textCursor();
 
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
     layout->addWidget(this->networkInterfaceAddress, 0, 1);
@@ -70,6 +71,7 @@ Server::Server(QWidget *parent) : QWidget(parent) {
 
     // iperf interface signal & slot handling
     QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(setText(QString)));
+    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this, SLOT(setCursor()));
     QObject::connect(this->iperfInterface, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(onProcessStateChanged(QProcess::ProcessState)));
     QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this, SLOT(onConnectionEstablished()));
     QObject::connect(this->iperfInterface, SIGNAL(connectionClosed()), this, SLOT(onConnectionClosed()));
@@ -119,15 +121,18 @@ void Server::onStartButtonClicked() {
         this->iperfInterface->kill();
     }
 
-    QTextCursor c = log->textCursor();
-    c.movePosition(QTextCursor::End);
-    log->setTextCursor(c);
 }
 
 void Server::onNetworkInterfaceDropdownChanged(const int &index) {
     QString selectedNetworkInterfaceName = this->networkInterface->itemText(index);
     QString selectedNetworkInterfaceAddress = this->availableNetworkInterfaces.value(selectedNetworkInterfaceName);
     this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
+}
+
+void Server::setCursor()
+{
+    c.movePosition(QTextCursor::End);
+    this->log->setTextCursor(c);
 }
 
 void Server::onProcessStateChanged(const QProcess::ProcessState &newState) {
