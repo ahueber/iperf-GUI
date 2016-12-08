@@ -24,6 +24,10 @@ private:
     QLabel *networkInterfaceAddress;
     QMap<QString, QString> availableNetworkInterfaces;
 
+    void setIsRunning();
+    void setIsNotRunning();
+    void setIsRunningAndConnected();
+
 public:
     explicit Server(QWidget *parent = 0);
 
@@ -35,9 +39,9 @@ public slots:
     void onNetworkInterfaceDropdownChanged(const int &);
 
     // iperf interface slots
-    void onSetTrafficLightRed();
-    void onSetTrafficLightYellow();
-    void onSetTrafficLightGreen();
+    void onProcessStateChanged(const QProcess::ProcessState &newState);
+    void onConnectionEstablished();
+    void onConnectionClosed();
 };
 
 #endif // SERVER_H

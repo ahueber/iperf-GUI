@@ -15,8 +15,11 @@
 #include <QDebug>
 
 #define IPERF_PATH_AND_FILENAME "/usr/bin/iperf3"
+
 #define MSG_SERVER_LISTENING "Server listening on UDP port [0-9]+"
-#define MSG_CONNECTION_ESTABLISHED "[a-zA-Z0-9]+ (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+ connected with (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+"
+//#define MSG_CONNECTION_ESTABLISHED "[a-zA-Z0-9]+ (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+ connected with (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+"
+#define MSG_CONNECTION_ESTABLISHED "Accepted connection from"
+#define MSG_CONNECTION_CLOSED "receiver"
 #define MSG_CLIENT_CONNECTION_REFUSED "read failed: Connection refused"
 
 
@@ -28,11 +31,15 @@ private:
     QString logPathAndFilename;
 
     bool serverIsListening = false;
+    bool clientConnected = false;
 
     QFileSystemWatcher *logFileWatcher;
     QFile *logFile;
 
     QStringList parseCombinedArgString(const QString &program);
+    QString getLastLine(const QString &text);
+    void parseLogOutput(const QString &logOutput);
+    void clearLogFile();
 
 public:
     IperfInterface(QString initialArguments = QString(), QString logPathAndFilename = QString("/tmp/iperf3.log"));
@@ -55,6 +62,7 @@ signals:
     void logOutput(const QString &);
     void serverStartedListening();
     void connectionEstablished();
+    void connectionClosed();
 
 public slots:
     void processReadyReadStandardOutput();

@@ -13,8 +13,7 @@
 #include <QMap>
 #include <QDebug>
 
-Server::Server(QWidget *parent) : QWidget(parent)
-{
+Server::Server(QWidget *parent) : QWidget(parent) {
     setFixedSize(800, 480);
     QGridLayout *layout = new QGridLayout();
     listening = true;
@@ -44,7 +43,7 @@ Server::Server(QWidget *parent) : QWidget(parent)
     //log window
     log = new QTextEdit();
     log->setReadOnly(true);
-    log->setPlaceholderText("Log Ausgabe:");
+    log->setPlaceholderText("iperf3 Log output");
 
     layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
     layout->addWidget(this->networkInterfaceAddress, 0, 1);
@@ -69,47 +68,55 @@ Server::Server(QWidget *parent) : QWidget(parent)
         this->networkInterface->addItem(i.key());
     }
 
-    // connect logging slot to log text field append signal
+    // iperf interface signal & slot handling
     QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(setText(QString)));
-
-    // connect server started listening slot to set traffic light yellow signal
-    QObject::connect(this->iperfInterface, SIGNAL(serverStartedListening()), this, SLOT(onSetTrafficLightYellow()));
-
-    // connect server connection established slot to set traffic light green signal
-    QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this, SLOT(onSetTrafficLightGreen()));
+    QObject::connect(this->iperfInterface, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(onProcessStateChanged(QProcess::ProcessState)));
+    QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this, SLOT(onConnectionEstablished()));
+    QObject::connect(this->iperfInterface, SIGNAL(connectionClosed()), this, SLOT(onConnectionClosed()));
 }
 
-void Server::onExitButtonClicked()
-{
+void Server::setIsRunning() {
+    if (this->iperfInterface->state() == QProcess::Running) {
+        //this->log->setText("Server listening");
+        this->tl->setColor(TrafficLight::green);
+        this->startButton->setText("Stop");
+        this->iperfInterface->setServerIsListening(true);
+    }
+}
+
+void Server::setIsNotRunning() {
+    if (this->iperfInterface->state() == QProcess::NotRunning) {
+        //this->log->setText("Server not listening");
+        this->tl->setColor(TrafficLight::red);
+        this->startButton->setText("Start");
+        this->iperfInterface->setServerIsListening(false);
+    }
+}
+
+void Server::setIsRunningAndConnected() {
+    if (this->iperfInterface->state() == QProcess::Running) {
+        this->tl->setColor(TrafficLight::yellow);
+    }
+}
+
+void Server::onExitButtonClicked() {
+    this->setIsNotRunning();
     // if server window was closed, kill the iperf interface server
     this->iperfInterface->kill();
     this->close();
 }
 
-void Server::onStartButtonClicked()
-{
+void Server::onStartButtonClicked() {
     // clear the log text field
     this->log->clear();
 
-    // check if iperf interface server is not already listening
-    if (!this->iperfInterface->getIsServerListening()) {
-        tl->setColor(TrafficLight::green);
-        startButton->setText("Stop");
-
+    // check if process is already running
+    if (this->iperfInterface->state() == QProcess::NotRunning) {
         // run iperf interface in server mode
         this->iperfInterface->run();
     } else {
-        tl->setColor(TrafficLight::red);
-        startButton->setText("Start");
-
         // kill iperf interface server
         this->iperfInterface->kill();
-
-        // set iperf interface server listening to false
-        this->iperfInterface->setServerIsListening(false);
-
-        // set traffic light to red
-        this->tl->setColor(TrafficLight::red);
     }
 
     QTextCursor c = log->textCursor();
@@ -123,14 +130,25 @@ void Server::onNetworkInterfaceDropdownChanged(const int &index) {
     this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
 }
 
-void Server::onSetTrafficLightRed() {
-    this->tl->setColor(TrafficLight::red);
+void Server::onProcessStateChanged(const QProcess::ProcessState &newState) {
+    switch (newState) {
+        case QProcess::Running:
+            this->setIsRunning();
+            break;
+
+        case QProcess::NotRunning:
+            this->setIsNotRunning();
+            break;
+
+        default:
+            break;
+    }
 }
 
-void Server::onSetTrafficLightYellow() {
-    this->tl->setColor(TrafficLight::yellow);
+void Server::onConnectionEstablished() {
+    this->setIsRunningAndConnected();
 }
 
-void Server::onSetTrafficLightGreen() {
-    this->tl->setColor(TrafficLight::green);
+void Server::onConnectionClosed() {
+    this->setIsRunning();
 }

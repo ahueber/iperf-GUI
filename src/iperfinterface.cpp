@@ -125,19 +125,46 @@ void IperfInterface::processReadyReadStandardOutput() {
     }
 }
 
+QString IperfInterface::getLastLine(const QString &text) {
+    QStringList lines = text.split("\n");
+    int linesCount = lines.size();
+    QString lastLine("");
+    while (lastLine.isEmpty()) {
+        lastLine = lines.at(--linesCount);
+    }
+    return lastLine;
+}
+
+void IperfInterface::parseLogOutput(const QString &logOutput) {
+    if (!this->clientConnected && logOutput.contains(QRegExp(MSG_CONNECTION_ESTABLISHED))) {
+        emit this->connectionEstablished();
+        this->clientConnected = true;
+    } else if (this->clientConnected && logOutput.contains(QRegExp(MSG_CONNECTION_CLOSED))) {
+        emit this->connectionClosed();
+        emit this->logOutput(logOutput);
+        this->clientConnected = false;
+        this->clearLogFile();
+    }
+}
+
+void IperfInterface::clearLogFile() {
+    if (!this->logFile->open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    this->logFile->resize(0);
+    this->logFile->close();
+}
+
 void IperfInterface::processFileChanged(const QString &) {
     if (!this->logFile->open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
-    /*
-    QTextStream in(this->logFile);
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        emit this->logOutput(line);
-    }
-    */
-
-    emit this->logOutput(this->logFile->readAll());
-
+    QString logFileContent = this->logFile->readAll();
     this->logFile->close();
+
+    this->parseLogOutput(logFileContent);
+    if (this->clientConnected) {
+        emit this->logOutput(logFileContent);
+    }
+
 }
