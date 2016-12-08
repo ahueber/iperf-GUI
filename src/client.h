@@ -1,8 +1,9 @@
 /**
  * @file client.h
- * @brief A brief description about this header file.
+ * @brief Das Widget für den Clientbetrieb.
  *
- * A long description about this header file.
+ * Diese Klasse repräsentiert das Widget für den Clientbetrieb der Applikation.
+ * Dieses Widget wird vom Willkommen-Widget geöffnet.
  *
  * @author Andreas Hueber
  * @author Thomas Breuss
@@ -20,7 +21,7 @@ class QSlider;
 class QLineEdit;
 
 /**
- * @brief The Client class
+ * @brief Die Client-Klasse
  */
 class Client : public QWidget
 {
@@ -39,7 +40,7 @@ private:
 
 public:
     /**
-     * @brief Client
+     * @brief Client Konstruktor
      * @param parent
      */
     explicit Client(QWidget *parent = 0);
@@ -48,33 +49,33 @@ signals:
 
 public slots:
     /**
-     * @brief A brief description about this slot.
+     * @brief Beim Klicken des Schliessen-Button aufgerufene Handler-Methode.
      */
     void onExitButtonClicked();   
     /**
-     * @brief A brief description about this slot.
+     * @brief Beim Klicken des Starten-Button aufgerufene Handler-Methode.
      */
     void onStartButtonClicked();
     /**
-     * @brief A brief description about this slot.
+     * @brief Beim Klicken des Keyboard-Button aufgerufene Handler-Methode.
      */
     void onKeyboardClicked();
     /**
-     * @brief A brief description about this slot.
+     * @brief Beim Bewegen oder Anklicken des Slider "Laufzeit" aufgerufene Handler-Methode.
      */
     void onRuntimeChanged(int);
     /**
-     * @brief A brief description about this slot.
+     * @brief Beim Bewegen oder Anklicken des Slider "Bandbreite" aufgerufene Handler-Methode.
      */
     void onBandwidthChanged(int);
     /**
-     * @brief setIP
-     * @param s
+     * @brief Setzt die IP-Adresse.
+     * @param s Die IP-Adresse als String im Format 192.168.0.40
      */
     void setIP(QString s);
     /**
-     * @brief getIP
-     * @return
+     * @brief Gibt die IP-Adresse zurück.
+     * @return Die IP-Adresse als String im Format 192.168.0.40
      */
     QString getIP();
 };

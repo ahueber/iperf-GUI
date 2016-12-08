@@ -1,3 +1,13 @@
+/**
+ * @file iperfinterface.h
+ * @brief Die Schnittstellen-Klasse für iperf3
+ *
+ * Diese Klasse fungiert als Schnittstelle zwischen der GUI-Applikation und dem Kommandozeilenprogramm iperf3.
+ *
+ * @author Andreas Hueber
+ * @author Thomas Breuss
+ */
+
 #ifndef IPERFINTERFACE_H
 #define IPERFINTERFACE_H
 
@@ -23,6 +33,9 @@
 #define MSG_CLIENT_CONNECTION_REFUSED "read failed: Connection refused"
 
 
+/**
+ * @brief Die IperfInterface-Klasse
+ */
 class IperfInterface : public QProcess {
     Q_OBJECT
 
@@ -42,30 +55,82 @@ private:
     void clearLogFile();
 
 public:
+    /**
+     * @brief Der IperfInterface-Konstruktor
+     * @param initialArguments Die Argumente-Liste, welche an das Kommandozeilenprogramm übermittelt werden.
+     * @param logPathAndFilename Der Pfad zur Logdatei.
+     */
     IperfInterface(QString initialArguments = QString(), QString logPathAndFilename = QString("/tmp/iperf3.log"));
     ~IperfInterface();
 
+    /**
+     * @brief Setzt die Argumente-Liste
+     * @param initialArguments Die Argumente-Liste als String.
+     */
     void setInitialArguments(QString initialArguments);
+
+    /**
+     * @brief Gibt die Argumente-Liste als String zurück.
+     * @return Die Argumente-Liste als String.
+     */
     QString getInitialArguments();
 
     //void setLogPathAndFilename(QString logPathAndFilename);
+    /**
+     * @brief Gibt den Pfad zur Logdatei zurück.
+     * @return Der Pfad als String.
+     */
     QString getLogPathAndFilename();
 
+    /**
+     * @brief Setzt den Server auf "Listening".
+     * @param serverIsListening
+     */
     void setServerIsListening(bool serverIsListening);
+
+    /**
+     * @brief Gibt zurück ob der Server auf "Listening" gesetzt ist.
+     * @return Den Status "Listening"
+     */
     bool getIsServerListening();
 
+    /**
+     * @brief Gibt die Netzwerkschnittstellen als Map zurück.
+     * @return Die Netzwerkschnittstellen
+     */
     QMap<QString, QString> getNetworkInterfaces();
 
+    /**
+     * @brief Startet das Kommandozeilenprogramm iperf3.
+     */
     void run();
 
 signals:
-    void logOutput(const QString &);
-    void serverStartedListening();
-    void connectionEstablished();
+    /**
+     * @brief Signal wenn der Output geloggt wird.
+     */
+    void logOutput(const QString &);    
+    /**
+     * @brief Signal wenn Start des Servers abgeschlossen ist.
+     */
+    void serverStartedListening();    
+    /**
+     * @brief Signal wenn die Verbindung zwischen Client und Server aufgebaut ist.
+     */
+    void connectionEstablished();    
+    /**
+     * @brief Signal wenn die Verbindung zwischen Client und Server geschlossen wurde.
+     */
     void connectionClosed();
 
 public slots:
+    /**
+     * @brief Bei der Bereitschaft des Prozesses aufgerufene Handler-Methode.
+     */
     void processReadyReadStandardOutput();
+    /**
+     * @brief Beim Ändern der Logdatei aufgerufene Handler-Methode.
+     */
     void processFileChanged(const QString &);
 
 };
