@@ -9,8 +9,9 @@
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent)
 {
-    setWindowIcon(QIcon(":/icon/images/icon.png"));
-    qDebug()<<this->windowIcon();
+    //window icon test
+    //setWindowIcon(QIcon(":/icon/images/icon.png"));
+
 
     setFixedSize(800, 480);
 
