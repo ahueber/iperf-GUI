@@ -110,7 +110,7 @@ void Server::onExitButtonClicked() {
 
 void Server::onStartButtonClicked() {
     // clear the log text field
-    this->log->clear();
+    //this->log->clear();
 
     // check if process is already running
     if (this->iperfInterface->state() == QProcess::NotRunning) {
@@ -129,8 +129,7 @@ void Server::onNetworkInterfaceDropdownChanged(const int &index) {
     this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
 }
 
-void Server::setCursor()
-{
+void Server::setCursor() {
     c.movePosition(QTextCursor::End);
     this->log->setTextCursor(c);
 }
