@@ -111,8 +111,10 @@ void Client::onExitButtonClicked()
 
 void Client::onStartButtonClicked()
 {
-    qDebug() << this->createIperfArgumentString("127.0.0.1", "10M", 10, 0);
-    if(listening){
+    int mode = this->duplex->isChecked() ? 0 : 1;
+    qDebug() << mode;
+
+    if(listening){        
         tl->setColor(TrafficLight::green);
         listening = false;
         startButton->setText("Stop");
@@ -157,11 +159,11 @@ QString Client::createIperfArgumentString(QString ipAddress, QString bandwidth, 
 
     switch (mode) {
         case 1:
-            result = IPERF_CLIENT_DUPLEX_MODE_ARGS;
+            result = IPERF_CLIENT_SIMPLEX_MODE_ARGS;
             break;
         case 0:
         default:
-            result = IPERF_CLIENT_SIMPLEX_MODE_ARGS;
+            result = IPERF_CLIENT_DUPLEX_MODE_ARGS;
             break;
     }
 

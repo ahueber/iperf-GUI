@@ -48,7 +48,7 @@ private:
      * @param ipAddress Die IP-Adresse zu welchem der Client sich verbinden soll
      * @param bandwidth Die Bandbreite für die Übertragung im Format #[KMG]
      * @param time Die Zeit in Sekunden bis der Client sich disconnected
-     * @param mode Modus für die Verbindung zum Server (Simplex = 0 [default], Duplex = 1)
+     * @param mode Modus für die Verbindung zum Server (Duplex = 0 [default], Simplex = 1)
      * @return iperf3 kompatibler String aus Argumenten
      */
     QString createIperfArgumentString(QString ipAddress, QString bandwidth, int time, int mode = 0);
