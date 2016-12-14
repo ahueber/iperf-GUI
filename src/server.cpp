@@ -60,7 +60,7 @@ Server::Server(QWidget *parent) : QWidget(parent) {
     setLayout(layout);
 
     // create iperf interface in server mode
-    this->iperfInterface = new IperfInterface("-s -p 5001");
+    this->iperfInterface = new IperfInterface(IPERF_SERVER_MODE_ARGS);
 
     // TODO: On change event for interface dropdown implementation
     this->availableNetworkInterfaces = this->iperfInterface->getNetworkInterfaces();

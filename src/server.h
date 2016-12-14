@@ -16,6 +16,8 @@
 #include <QTextCursor>
 #include "iperfinterface.h"
 
+#define IPERF_SERVER_MODE_ARGS "-s -p 5001"
+
 class TrafficLight;
 class QPushButton;
 class QTextEdit;
