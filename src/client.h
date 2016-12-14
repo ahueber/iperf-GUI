@@ -13,12 +13,16 @@
 #define CLIENT_H
 
 #include <QWidget>
+#include "iperfinterface.h"
 
 class TrafficLight;
 class QPushButton;
 class QRadioButton;
 class QSlider;
 class QLineEdit;
+
+#define IPERF_CLIENT_DUPLEX_MODE_ARGS "-c {{IP_ADDRESS}} -u -P 1 -i 1 -p 5001 -f m -b {{BANDWIDTH}} -t {{TIME}} -d -L 5001 -T 1"
+#define IPERF_CLIENT_SIMPLEX_MODE_ARGS "-c {{IP_ADDRESS}} -u -P 1 -i 1 -p 5001 -f m -b {{BANDWIDTH}} -t {{TIME}} -T 1"
 
 /**
  * @brief Die Client-Klasse
@@ -27,6 +31,7 @@ class Client : public QWidget
 {
     Q_OBJECT
 private:
+    IperfInterface *iperfInterface;
     bool listening;
     TrafficLight *tl;
     QPushButton *startButton;
@@ -37,6 +42,16 @@ private:
     QLineEdit *fieldRuntime;
     QLineEdit *fieldBandwidth;
     QLineEdit *fieldIP;
+
+    /**
+     * @brief Erstellt einen String der dem Iperf CLI Tool übergeben werden kann
+     * @param ipAddress Die IP-Adresse zu welchem der Client sich verbinden soll
+     * @param bandwidth Die Bandbreite für die Übertragung im Format #[KMG]
+     * @param time Die Zeit in Sekunden bis der Client sich disconnected
+     * @param mode Modus für die Verbindung zum Server (Simplex = 0 [default], Duplex = 1)
+     * @return iperf3 kompatibler String aus Argumenten
+     */
+    QString createIperfArgumentString(QString ipAddress, QString bandwidth, int time, int mode = 0);
 
 public:
     /**

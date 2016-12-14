@@ -111,6 +111,7 @@ void Client::onExitButtonClicked()
 
 void Client::onStartButtonClicked()
 {
+    qDebug() << this->createIperfArgumentString("127.0.0.1", "10M", 10, 0);
     if(listening){
         tl->setColor(TrafficLight::green);
         listening = false;
@@ -149,4 +150,23 @@ void Client::setIP(QString s)
 QString Client::getIP()
 {
     return fieldIP->text();
+}
+
+QString Client::createIperfArgumentString(QString ipAddress, QString bandwidth, int time, int mode) {
+    QString result;
+
+    switch (mode) {
+        case 1:
+            result = IPERF_CLIENT_DUPLEX_MODE_ARGS;
+            break;
+        case 0:
+        default:
+            result = IPERF_CLIENT_SIMPLEX_MODE_ARGS;
+            break;
+    }
+
+    return result
+            .replace("{{IP_ADDRESS}}", ipAddress)
+            .replace("{{BANDWIDTH}}", bandwidth)
+            .replace("{{TIME}}", QString::fromStdString(std::to_string(time)));
 }
