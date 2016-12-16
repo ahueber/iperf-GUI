@@ -111,10 +111,21 @@ void Client::onExitButtonClicked()
 
 void Client::onStartButtonClicked()
 {
+    QString ipAddress = this->fieldIP->text();
+    QString bandwidth = this->fieldBandwidth->text().replace(" Mbit/s", "M");
+    int time = this->fieldRuntime->text().replace(" s", "").toInt();
     int mode = this->duplex->isChecked() ? 0 : 1;
-    qDebug() << mode;
 
-    if(listening){        
+    QString iperfArgumentString("");
+    if (ipAddress.length() && bandwidth.length() && time > 0) {
+        iperfArgumentString = this->createIperfArgumentString(ipAddress, bandwidth, time, mode);
+    }
+
+    if(listening){
+        if (iperfArgumentString.length()) {
+            IperfInterface *iperfInterface = new IperfInterface(iperfArgumentString);
+            iperfInterface->run();
+        }
         tl->setColor(TrafficLight::green);
         listening = false;
         startButton->setText("Stop");
