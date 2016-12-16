@@ -123,16 +123,17 @@ void Client::onStartButtonClicked()
 
     if(listening){
         if (iperfArgumentString.length()) {
-            IperfInterface *iperfInterface = new IperfInterface(iperfArgumentString);
-            iperfInterface->run();
+            this->iperfInterface = new IperfInterface(iperfArgumentString);
+            this->iperfInterface->run();
         }
         tl->setColor(TrafficLight::green);
         listening = false;
         startButton->setText("Stop");
 
     }else{
+        this->iperfInterface->kill();
         tl->setColor(TrafficLight::red);
-        startButton->setText("Fortsetzen");
+        startButton->setText("Start");
         listening = true;
 
     }
