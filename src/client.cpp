@@ -55,10 +55,12 @@ Client::Client(QWidget *parent) : QWidget(parent)
     fieldRuntime = new QLineEdit();
     fieldRuntime->setFixedWidth(100);
     fieldRuntime->setPlaceholderText("10-1000s");
+    fieldRuntime->setReadOnly(true);
 
     fieldBandwidth = new QLineEdit();
     fieldBandwidth->setFixedWidth(100);
     fieldBandwidth->setPlaceholderText("1-100 Mbit/s");
+    fieldBandwidth->setReadOnly(true);
 
     //sliders
     sliderRuntime = new QSlider(Qt::Horizontal);
@@ -102,6 +104,8 @@ Client::Client(QWidget *parent) : QWidget(parent)
     sliderBandwidth->setValue(settings.value("default.bandwidth").toInt());
 
     setLayout(layout);
+
+    this->iperfInterface = 0;
 }
 
 void Client::onExitButtonClicked()
@@ -121,6 +125,30 @@ void Client::onStartButtonClicked()
         iperfArgumentString = this->createIperfArgumentString(ipAddress, bandwidth, time, mode);
     }
 
+    if (iperfArgumentString.length()) {
+        if (this->iperfInterface == 0) {
+            this->iperfInterface = new IperfInterface(iperfArgumentString);
+            QObject::connect(this->iperfInterface, SIGNAL(connectionClosed()), this, SLOT(onClientHasFinished()));
+        } else {
+            this->iperfInterface->setInitialArguments(iperfArgumentString);
+        }
+
+        if (this->iperfInterface->state() == QProcess::NotRunning) {
+            this->iperfInterface->run();
+
+            this->tl->setColor(TrafficLight::green);
+            this->listening = false;
+            this->startButton->setText("Stop");
+        } else if (this->iperfInterface->state() == QProcess::Running) {
+            this->iperfInterface->kill();
+
+            this->tl->setColor(TrafficLight::red);
+            this->listening = true;
+            this->startButton->setText("Start");
+        }
+    }
+    /*
+
     if(listening){
         if (iperfArgumentString.length()) {
             this->iperfInterface = new IperfInterface(iperfArgumentString);
@@ -137,6 +165,7 @@ void Client::onStartButtonClicked()
         listening = true;
 
     }
+    */
 
 }
 
@@ -154,6 +183,12 @@ void Client::onRuntimeChanged(int value)
 void Client::onBandwidthChanged(int value)
 {
     fieldBandwidth->setText(QString::number(value)+" Mbit/s");
+}
+
+void Client::onClientHasFinished() {
+    this->tl->setColor(TrafficLight::red);
+    this->listening = true;
+    this->startButton->setText("Start");
 }
 
 void Client::setIP(QString s)

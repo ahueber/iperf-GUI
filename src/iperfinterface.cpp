@@ -2,7 +2,14 @@
 
 IperfInterface::IperfInterface(QString initialArguments, QString logPathAndFilename) {
     this->initialArguments = initialArguments;
-    this->logPathAndFilename = logPathAndFilename;
+
+    if (this->initialArguments.contains("-s")) {
+        this->logPathAndFilename = "/tmp/iperf3_server.log";
+    } else if (this->initialArguments.contains("-c")) {
+        this->logPathAndFilename = "/tmp/iperf3_client.log";
+    } else {
+        this->logPathAndFilename = logPathAndFilename;
+    }
 
     this->setProcessChannelMode(QProcess::MergedChannels);
     //QObject::connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processReadyReadStandardOutput()));
@@ -139,12 +146,16 @@ void IperfInterface::parseLogOutput(const QString &logOutput) {
     if (!this->clientConnected && logOutput.contains(QRegExp(MSG_CONNECTION_ESTABLISHED))) {
         emit this->connectionEstablished();
         this->clientConnected = true;
-    } else if (this->clientConnected && (
-                   //logOutput.contains(QRegExp(MSG_CONNECTION_CLOSED)) ||
-                   logOutput.split(MSG_CONNECTION_CLOSED).length() > 2 ||
-                   logOutput.contains(QRegExp(MSG_CLIENT_CONNECTION_REFUSED)) ||
-                   logOutput.contains(QRegExp(MSG_CLIENT_HAS_TERMINATED))
-                   )) {
+    } else if (//logOutput.contains(QRegExp(MSG_CONNECTION_CLOSED)) ||
+               logOutput.split(MSG_CONNECTION_CLOSED).length() > 2 ||
+               logOutput.contains(QRegExp(MSG_SERVER_HAS_TERMINATED)) ||
+               logOutput.contains(QRegExp(MSG_SOCKET_UNEXPECTEDLY_CLOSED)) ||
+               logOutput.contains(QRegExp(MSG_CLIENT_CONNECTION_REFUSED)) ||
+               logOutput.contains(QRegExp(MSG_CLIENT_HAS_TERMINATED)) ||
+               logOutput.contains(QRegExp(MSG_CLIENT_UNEXPECTEDLY_CLOSED)) ||
+               logOutput.contains(QRegExp(MSG_CLIENT_HAS_FINISHED))
+
+              ) {
         emit this->connectionClosed();
         emit this->logOutput(logOutput);
         this->clientConnected = false;
@@ -153,11 +164,13 @@ void IperfInterface::parseLogOutput(const QString &logOutput) {
 }
 
 void IperfInterface::clearLogFile() {
+    this->logFileWatcher->blockSignals(true);
     if (!this->logFile->open(QIODevice::WriteOnly | QIODevice::Text))
         return;
 
     this->logFile->resize(0);
     this->logFile->close();
+    this->logFileWatcher->blockSignals(false);
 }
 
 void IperfInterface::processFileChanged(const QString &) {

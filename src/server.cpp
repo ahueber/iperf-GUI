@@ -79,6 +79,7 @@ Server::Server(QWidget *parent) : QWidget(parent) {
 
 void Server::setIsRunning() {
     if (this->iperfInterface->state() == QProcess::Running) {
+        this->startButton->setDisabled(false);
         //this->log->setText("Server listening");
         this->tl->setColor(TrafficLight::green);
         this->startButton->setText("Stop");
@@ -97,6 +98,7 @@ void Server::setIsNotRunning() {
 
 void Server::setIsRunningAndConnected() {
     if (this->iperfInterface->state() == QProcess::Running) {
+        this->startButton->setDisabled(true);
         this->tl->setColor(TrafficLight::yellow);
     }
 }

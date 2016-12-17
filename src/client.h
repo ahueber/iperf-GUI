@@ -84,6 +84,10 @@ public slots:
      */
     void onBandwidthChanged(int);
     /**
+     * @brief Wird aufgerufen sobald der Client keine Pakete mehr sendet, also beendet ist
+     */
+    void onClientHasFinished();
+    /**
      * @brief Setzt die IP-Adresse.
      * @param s Die IP-Adresse als String im Format 192.168.0.40
      */
@@ -93,6 +97,7 @@ public slots:
      * @return Die IP-Adresse als String im Format 192.168.0.40
      */
     QString getIP();
+
 };
 
 #endif // CLIENT_H
