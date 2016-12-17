@@ -139,7 +139,12 @@ void IperfInterface::parseLogOutput(const QString &logOutput) {
     if (!this->clientConnected && logOutput.contains(QRegExp(MSG_CONNECTION_ESTABLISHED))) {
         emit this->connectionEstablished();
         this->clientConnected = true;
-    } else if (this->clientConnected && logOutput.contains(QRegExp(MSG_CONNECTION_CLOSED))) {
+    } else if (this->clientConnected && (
+                   //logOutput.contains(QRegExp(MSG_CONNECTION_CLOSED)) ||
+                   logOutput.split(MSG_CONNECTION_CLOSED).length() > 2 ||
+                   logOutput.contains(QRegExp(MSG_CLIENT_CONNECTION_REFUSED)) ||
+                   logOutput.contains(QRegExp(MSG_CLIENT_HAS_TERMINATED))
+                   )) {
         emit this->connectionClosed();
         emit this->logOutput(logOutput);
         this->clientConnected = false;

@@ -29,8 +29,9 @@
 #define MSG_SERVER_LISTENING "Server listening on UDP port [0-9]+"
 //#define MSG_CONNECTION_ESTABLISHED "[a-zA-Z0-9]+ (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+ connected with (?:[0-9]{1,3}.){3}[0-9]{1,3} port [0-9]+"
 #define MSG_CONNECTION_ESTABLISHED "Accepted connection from"
-#define MSG_CONNECTION_CLOSED "receiver"
+#define MSG_CONNECTION_CLOSED "Lost/Total Datagrams"
 #define MSG_CLIENT_CONNECTION_REFUSED "read failed: Connection refused"
+#define MSG_CLIENT_HAS_TERMINATED "iperf3: the client has terminated"
 
 
 /**
