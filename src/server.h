@@ -7,6 +7,7 @@
  *
  * @author Andreas Hueber
  * @author Thomas Breuss
+ * @author Tobias Merz
  */
 
 #ifndef SERVER_H
