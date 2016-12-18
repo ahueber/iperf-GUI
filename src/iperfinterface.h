@@ -4,7 +4,7 @@
  *
  * Diese Klasse fungiert als Schnittstelle zwischen der GUI-Applikation und dem Kommandozeilenprogramm iperf3.
  *
- * @author Thomas Breuss
+ * @author Tobias Merz
  */
 
 #ifndef IPERFINTERFACE_H
