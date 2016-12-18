@@ -35,6 +35,7 @@ private:
     bool listening;
     TrafficLight *tl;
     QPushButton *startButton;
+    QPushButton *keyboard;
     QSlider *sliderRuntime;
     QSlider *sliderBandwidth;
     QRadioButton *simplex;
@@ -52,6 +53,12 @@ private:
      * @return iperf3 kompatibler String aus Argumenten
      */
     QString createIperfArgumentString(QString ipAddress, QString bandwidth, int time, int mode = 0);
+
+    /**
+     * @brief Deaktiviert bzw. aktiviert die GUI Elemente
+     * @param state Status der GUI (true = deaktiviert, false = aktiviert)
+     */
+    void setDisabledGui(bool state);
 
 public:
     /**

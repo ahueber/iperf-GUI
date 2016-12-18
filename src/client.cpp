@@ -45,6 +45,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     fieldIP = new QLineEdit();
     fieldIP->setFont(font);
     fieldIP->setPlaceholderText("z.B. 10.22.0.160");
+    fieldIP->setReadOnly(true);
 
     simplex = new QRadioButton("Simplex");
     simplex->setFont(font2);
@@ -72,7 +73,7 @@ Client::Client(QWidget *parent) : QWidget(parent)
     //buttons
     QPushButton *exitButton = new QPushButton("Schliessen");
     startButton = new QPushButton("Starten");
-    QPushButton *keyboard = new QPushButton("...");
+    keyboard = new QPushButton("...");
     keyboard->setFixedWidth(30);
 
     //set position in grid
@@ -139,12 +140,14 @@ void Client::onStartButtonClicked()
             this->tl->setColor(TrafficLight::green);
             this->listening = false;
             this->startButton->setText("Stop");
+            this->setDisabledGui(true);
         } else if (this->iperfInterface->state() == QProcess::Running) {
             this->iperfInterface->kill();
 
             this->tl->setColor(TrafficLight::red);
             this->listening = true;
             this->startButton->setText("Start");
+            this->setDisabledGui(false);
         }
     }
     /*
@@ -189,6 +192,7 @@ void Client::onClientHasFinished() {
     this->tl->setColor(TrafficLight::red);
     this->listening = true;
     this->startButton->setText("Start");
+    this->setDisabledGui(false);
 }
 
 void Client::setIP(QString s)
@@ -218,4 +222,19 @@ QString Client::createIperfArgumentString(QString ipAddress, QString bandwidth, 
             .replace("{{IP_ADDRESS}}", ipAddress)
             .replace("{{BANDWIDTH}}", bandwidth)
             .replace("{{TIME}}", QString::fromStdString(std::to_string(time)));
+}
+
+void Client::setDisabledGui(bool state) {
+    this->keyboard->setDisabled(state);
+
+    this->duplex->setDisabled(state);
+    this->simplex->setDisabled(state);
+
+    this->fieldIP->setDisabled(state);
+
+    this->fieldBandwidth->setDisabled(state);
+    this->sliderBandwidth->setDisabled(state);
+
+    this->fieldRuntime->setDisabled(state);
+    this->sliderRuntime->setDisabled(state);
 }
