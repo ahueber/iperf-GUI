@@ -1,160 +1,168 @@
 #include "server.h"
 #include "trafficlight.h"
 
-#include <QVBoxLayout>
+#include <QComboBox>
+#include <QDebug>
+#include <QDebug>
+#include <QFont>
 #include <QGridLayout>
 #include <QLabel>
-#include <QFont>
-#include <QPushButton>
-#include <QTextEdit>
-#include <QDebug>
-#include <QTextCursor>
-#include <QComboBox>
 #include <QMap>
-#include <QDebug>
+#include <QPushButton>
+#include <QTextCursor>
+#include <QTextEdit>
+#include <QVBoxLayout>
 
 Server::Server(QWidget *parent) : QWidget(parent) {
-    setFixedSize(800, 480);
-    QGridLayout *layout = new QGridLayout();
-    listening = true;
+  setFixedSize(800, 480);
+  QGridLayout *layout = new QGridLayout();
+  listening = true;
 
-    //IP address label
-    QFont font;
-    font.setBold(true);
-    font.setPointSize(30);
+  // IP address label
+  QFont font;
+  font.setBold(true);
+  font.setPointSize(30);
 
-    this->networkInterfaceAddress = new QLabel("10.22.0.160");
-    this->networkInterfaceAddress->setScaledContents(true);
-    this->networkInterfaceAddress->setAlignment(Qt::AlignCenter);
-    this->networkInterfaceAddress->setFont(font);
-    this->networkInterfaceAddress->adjustSize();
+  this->networkInterfaceAddress = new QLabel("10.22.0.160");
+  this->networkInterfaceAddress->setScaledContents(true);
+  this->networkInterfaceAddress->setAlignment(Qt::AlignCenter);
+  this->networkInterfaceAddress->setFont(font);
+  this->networkInterfaceAddress->adjustSize();
 
-    //network interface selection
-    networkInterface = new QComboBox();
+  // network interface selection
+  networkInterface = new QComboBox();
 
-    //exit & start button
-    QPushButton *exitButton = new QPushButton("Schliessen");
-    startButton = new QPushButton("Starten");
+  // exit & start button
+  QPushButton *exitButton = new QPushButton("Schliessen");
+  startButton = new QPushButton("Starten");
 
-    //traffic light
-    tl = new TrafficLight();
-    tl->setColor(TrafficLight::red);
+  // traffic light
+  tl = new TrafficLight();
+  tl->setColor(TrafficLight::red);
 
-    //log window
-    log = new QTextEdit();
-    log->setReadOnly(true);
-    log->setPlaceholderText("iperf3 Log output");
-    c = log->textCursor();
+  // log window
+  log = new QTextEdit();
+  log->setReadOnly(true);
+  log->setPlaceholderText("iperf3 Log output");
+  c = log->textCursor();
 
-    layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
-    layout->addWidget(this->networkInterfaceAddress, 0, 1);
-    layout->addWidget(networkInterface, 0, 2);
-    layout->addWidget(log, 1, 1, 1, 2);
-    layout->addWidget(exitButton, 2, 2);
-    layout->addWidget(startButton, 2, 1);
+  layout->addWidget(tl, 0, 0, 2, 1, Qt::AlignCenter);
+  layout->addWidget(this->networkInterfaceAddress, 0, 1);
+  layout->addWidget(networkInterface, 0, 2);
+  layout->addWidget(log, 1, 1, 1, 2);
+  layout->addWidget(exitButton, 2, 2);
+  layout->addWidget(startButton, 2, 1);
 
-    QObject::connect(exitButton, SIGNAL(clicked()), this, SLOT(onExitButtonClicked()));
-    QObject::connect(startButton, SIGNAL(clicked()), this, SLOT(onStartButtonClicked()));
-    QObject::connect(this->networkInterface, SIGNAL(currentIndexChanged(int)), this, SLOT(onNetworkInterfaceDropdownChanged(int)));
+  QObject::connect(exitButton, SIGNAL(clicked()), this,
+                   SLOT(onExitButtonClicked()));
+  QObject::connect(startButton, SIGNAL(clicked()), this,
+                   SLOT(onStartButtonClicked()));
+  QObject::connect(this->networkInterface, SIGNAL(currentIndexChanged(int)),
+                   this, SLOT(onNetworkInterfaceDropdownChanged(int)));
 
-    setLayout(layout);
+  setLayout(layout);
 
-    // create iperf interface in server mode
-    this->iperfInterface = new IperfInterface(IPERF_SERVER_MODE_ARGS);
+  // create iperf interface in server mode
+  this->iperfInterface = new IperfInterface(IPERF_SERVER_MODE_ARGS);
 
-    // TODO: On change event for interface dropdown implementation
-    this->availableNetworkInterfaces = this->iperfInterface->getNetworkInterfaces();
-    QMap<QString, QString>::iterator i;
-    for (i = this->availableNetworkInterfaces.begin(); i != this->availableNetworkInterfaces.end(); ++i) {
-        this->networkInterface->addItem(i.key());
-    }
+  // TODO: On change event for interface dropdown implementation
+  this->availableNetworkInterfaces =
+      this->iperfInterface->getNetworkInterfaces();
+  QMap<QString, QString>::iterator i;
+  for (i = this->availableNetworkInterfaces.begin();
+       i != this->availableNetworkInterfaces.end(); ++i) {
+    this->networkInterface->addItem(i.key());
+  }
 
-    // iperf interface signal & slot handling
-    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log, SLOT(setText(QString)));
-    QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this, SLOT(setCursor()));
-    QObject::connect(this->iperfInterface, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(onProcessStateChanged(QProcess::ProcessState)));
-    QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this, SLOT(onConnectionEstablished()));
-    QObject::connect(this->iperfInterface, SIGNAL(connectionClosed()), this, SLOT(onConnectionClosed()));
+  // iperf interface signal & slot handling
+  QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this->log,
+                   SLOT(setText(QString)));
+  QObject::connect(this->iperfInterface, SIGNAL(logOutput(QString)), this,
+                   SLOT(setCursor()));
+  QObject::connect(this->iperfInterface,
+                   SIGNAL(stateChanged(QProcess::ProcessState)), this,
+                   SLOT(onProcessStateChanged(QProcess::ProcessState)));
+  QObject::connect(this->iperfInterface, SIGNAL(connectionEstablished()), this,
+                   SLOT(onConnectionEstablished()));
+  QObject::connect(this->iperfInterface, SIGNAL(connectionClosed()), this,
+                   SLOT(onConnectionClosed()));
 }
 
 void Server::setIsRunning() {
-    if (this->iperfInterface->state() == QProcess::Running) {
-        this->startButton->setDisabled(false);
-        //this->log->setText("Server listening");
-        this->tl->setColor(TrafficLight::yellow);
-        this->startButton->setText("Stop");
-        this->iperfInterface->setServerIsListening(true);
-    }
+  if (this->iperfInterface->state() == QProcess::Running) {
+    this->startButton->setDisabled(false);
+    // this->log->setText("Server listening");
+    this->tl->setColor(TrafficLight::yellow);
+    this->startButton->setText("Stop");
+    this->iperfInterface->setServerIsListening(true);
+  }
 }
 
 void Server::setIsNotRunning() {
-    if (this->iperfInterface->state() == QProcess::NotRunning) {
-        //this->log->setText("Server not listening");
-        this->tl->setColor(TrafficLight::red);
-        this->startButton->setText("Start");
-        this->iperfInterface->setServerIsListening(false);
-    }
+  if (this->iperfInterface->state() == QProcess::NotRunning) {
+    // this->log->setText("Server not listening");
+    this->tl->setColor(TrafficLight::red);
+    this->startButton->setText("Start");
+    this->iperfInterface->setServerIsListening(false);
+  }
 }
 
 void Server::setIsRunningAndConnected() {
-    if (this->iperfInterface->state() == QProcess::Running) {
-        this->startButton->setDisabled(true);
-        this->tl->setColor(TrafficLight::green);
-    }
+  if (this->iperfInterface->state() == QProcess::Running) {
+    this->startButton->setDisabled(true);
+    this->tl->setColor(TrafficLight::green);
+  }
 }
 
 void Server::onExitButtonClicked() {
-    this->setIsNotRunning();
-    // if server window was closed, kill the iperf interface server
-    this->iperfInterface->kill();
-    this->close();
+  this->setIsNotRunning();
+  // if server window was closed, kill the iperf interface server
+  this->iperfInterface->kill();
+  this->close();
 }
 
 void Server::onStartButtonClicked() {
-    // clear the log text field
-    //this->log->clear();
+  // clear the log text field
+  // this->log->clear();
 
-    // check if process is already running
-    if (this->iperfInterface->state() == QProcess::NotRunning) {
-        // run iperf interface in server mode
-        this->iperfInterface->run();
-    } else {
-        // kill iperf interface server
-        this->iperfInterface->kill();
-    }
-
+  // check if process is already running
+  if (this->iperfInterface->state() == QProcess::NotRunning) {
+    // run iperf interface in server mode
+    this->iperfInterface->run();
+  } else {
+    // kill iperf interface server
+    this->iperfInterface->kill();
+  }
 }
 
 void Server::onNetworkInterfaceDropdownChanged(const int &index) {
-    QString selectedNetworkInterfaceName = this->networkInterface->itemText(index);
-    QString selectedNetworkInterfaceAddress = this->availableNetworkInterfaces.value(selectedNetworkInterfaceName);
-    this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
+  QString selectedNetworkInterfaceName =
+      this->networkInterface->itemText(index);
+  QString selectedNetworkInterfaceAddress =
+      this->availableNetworkInterfaces.value(selectedNetworkInterfaceName);
+  this->networkInterfaceAddress->setText(selectedNetworkInterfaceAddress);
 }
 
 void Server::setCursor() {
-    c.movePosition(QTextCursor::End);
-    this->log->setTextCursor(c);
+  c.movePosition(QTextCursor::End);
+  this->log->setTextCursor(c);
 }
 
 void Server::onProcessStateChanged(const QProcess::ProcessState &newState) {
-    switch (newState) {
-        case QProcess::Running:
-            this->setIsRunning();
-            break;
-
-        case QProcess::NotRunning:
-            this->setIsNotRunning();
-            break;
-
-        default:
-            break;
-    }
-}
-
-void Server::onConnectionEstablished() {
-    this->setIsRunningAndConnected();
-}
-
-void Server::onConnectionClosed() {
+  switch (newState) {
+  case QProcess::Running:
     this->setIsRunning();
+    break;
+
+  case QProcess::NotRunning:
+    this->setIsNotRunning();
+    break;
+
+  default:
+    break;
+  }
 }
+
+void Server::onConnectionEstablished() { this->setIsRunningAndConnected(); }
+
+void Server::onConnectionClosed() { this->setIsRunning(); }
