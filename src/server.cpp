@@ -81,7 +81,7 @@ void Server::setIsRunning() {
     if (this->iperfInterface->state() == QProcess::Running) {
         this->startButton->setDisabled(false);
         //this->log->setText("Server listening");
-        this->tl->setColor(TrafficLight::green);
+        this->tl->setColor(TrafficLight::yellow);
         this->startButton->setText("Stop");
         this->iperfInterface->setServerIsListening(true);
     }
@@ -99,7 +99,7 @@ void Server::setIsNotRunning() {
 void Server::setIsRunningAndConnected() {
     if (this->iperfInterface->state() == QProcess::Running) {
         this->startButton->setDisabled(true);
-        this->tl->setColor(TrafficLight::yellow);
+        this->tl->setColor(TrafficLight::green);
     }
 }
 
