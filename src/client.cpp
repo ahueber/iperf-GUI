@@ -9,6 +9,7 @@
 #include <QRadioButton>
 #include <QSlider>
 #include <QSettings>
+#include <QMessageBox>
 
 Client::Client(QWidget *parent) : QWidget(parent)
 {
@@ -124,6 +125,11 @@ void Client::onStartButtonClicked()
     QString iperfArgumentString("");
     if (ipAddress.length() && bandwidth.length() && time > 0) {
         iperfArgumentString = this->createIperfArgumentString(ipAddress, bandwidth, time, mode);
+    } else {
+        QMessageBox messageBox;
+        messageBox.setText("IP-Adresse muss angegeben werden!");
+        messageBox.setWindowTitle("Fehler");
+        messageBox.exec();
     }
 
     if (iperfArgumentString.length()) {
