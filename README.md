@@ -38,3 +38,13 @@ docker attach iperf-interface-client
 ```Bash
 netburn duplex
 ```
+
+## Generate API documentation
+
+To generate API documentation simply execute `doxygene` in the root folder of the application.
+
+```Bash
+doxygene
+```
+
+To install Doxygene on your OS follow the instructions on the official Website <http://www.stack.nl/~dimitri/doxygen>.
