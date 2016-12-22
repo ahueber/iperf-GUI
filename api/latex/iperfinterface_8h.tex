@@ -5,18 +5,18 @@
 Die Schnittstellen-\/\+Klasse für iperf3.  
 
 
-{\ttfamily \#include $<$Q\+Object$>$}\newline
-{\ttfamily \#include $<$Q\+Map$>$}\newline
-{\ttfamily \#include $<$Q\+Process$>$}\newline
-{\ttfamily \#include $<$Qt\+Network$>$}\newline
-{\ttfamily \#include $<$Q\+String$>$}\newline
-{\ttfamily \#include $<$Q\+String\+List$>$}\newline
 {\ttfamily \#include $<$Q\+Byte\+Array$>$}\newline
-{\ttfamily \#include $<$Q\+Reg\+Exp$>$}\newline
+{\ttfamily \#include $<$Q\+Debug$>$}\newline
 {\ttfamily \#include $<$Q\+File$>$}\newline
 {\ttfamily \#include $<$Q\+File\+System\+Watcher$>$}\newline
+{\ttfamily \#include $<$Q\+Map$>$}\newline
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Process$>$}\newline
+{\ttfamily \#include $<$Q\+Reg\+Exp$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include $<$Q\+String\+List$>$}\newline
 {\ttfamily \#include $<$Q\+Text\+Stream$>$}\newline
-{\ttfamily \#include $<$Q\+Debug$>$}\newline
+{\ttfamily \#include $<$Qt\+Network$>$}\newline
 \subsection*{Klassen}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,14 +31,29 @@ class \hyperlink{class_iperf_interface}{Iperf\+Interface}
 \hypertarget{iperfinterface_8h_a2864939d4470c04aa2483de3fa15b984}{}\label{iperfinterface_8h_a2864939d4470c04aa2483de3fa15b984} 
 \#define {\bfseries M\+S\+G\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+L\+I\+S\+T\+E\+N\+I\+NG}~\char`\"{}Server listening on U\+DP port \mbox{[}0-\/9\mbox{]}+\char`\"{}
 \item 
+\hypertarget{iperfinterface_8h_a84ad75c7007d50b2b4fa18beabe5d58f}{}\label{iperfinterface_8h_a84ad75c7007d50b2b4fa18beabe5d58f} 
+\#define {\bfseries M\+S\+G\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+H\+A\+S\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+ED}~\char`\"{}the server has terminated\char`\"{}
+\item 
 \hypertarget{iperfinterface_8h_a35c703c8e2f12c9742fbdf33de1d9f14}{}\label{iperfinterface_8h_a35c703c8e2f12c9742fbdf33de1d9f14} 
 \#define {\bfseries M\+S\+G\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+E\+S\+T\+A\+B\+L\+I\+S\+H\+ED}~\char`\"{}Accepted connection from\char`\"{}
 \item 
 \hypertarget{iperfinterface_8h_a255f9bf3ec5cfd78d02af36b4b849e09}{}\label{iperfinterface_8h_a255f9bf3ec5cfd78d02af36b4b849e09} 
-\#define {\bfseries M\+S\+G\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+L\+O\+S\+ED}~\char`\"{}receiver\char`\"{}
+\#define {\bfseries M\+S\+G\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+C\+L\+O\+S\+ED}~\char`\"{}Lost/Total Datagrams\char`\"{}
+\item 
+\hypertarget{iperfinterface_8h_a66011f0797a15e752c39643919c885b6}{}\label{iperfinterface_8h_a66011f0797a15e752c39643919c885b6} 
+\#define {\bfseries M\+S\+G\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+U\+N\+E\+X\+P\+E\+C\+T\+E\+D\+L\+Y\+\_\+\+C\+L\+O\+S\+ED}~\char`\"{}control socket has closed unexpectedly\char`\"{}
 \item 
 \hypertarget{iperfinterface_8h_ad5aeb6d0cc27d1b17afeed94c684a040}{}\label{iperfinterface_8h_ad5aeb6d0cc27d1b17afeed94c684a040} 
-\#define {\bfseries M\+S\+G\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+R\+E\+F\+U\+S\+ED}~\char`\"{}read failed\+: Connection refused\char`\"{}
+\#define {\bfseries M\+S\+G\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+N\+\_\+\+R\+E\+F\+U\+S\+ED}~\char`\"{}Connection refused\char`\"{}
+\item 
+\hypertarget{iperfinterface_8h_af963d447dfb9fa35c3e2a82a49bb400c}{}\label{iperfinterface_8h_af963d447dfb9fa35c3e2a82a49bb400c} 
+\#define {\bfseries M\+S\+G\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+H\+A\+S\+\_\+\+T\+E\+R\+M\+I\+N\+A\+T\+ED}~\char`\"{}iperf3\+: the client has terminated\char`\"{}
+\item 
+\hypertarget{iperfinterface_8h_a704552ef03f196ac43b20baa26b4b949}{}\label{iperfinterface_8h_a704552ef03f196ac43b20baa26b4b949} 
+\#define {\bfseries M\+S\+G\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+U\+N\+E\+X\+P\+E\+C\+T\+E\+D\+L\+Y\+\_\+\+C\+L\+O\+S\+ED}~\char`\"{}the client has unexpectedly closed the connection\char`\"{}
+\item 
+\hypertarget{iperfinterface_8h_abdee4be44f2de396c3eab497be5eb81d}{}\label{iperfinterface_8h_abdee4be44f2de396c3eab497be5eb81d} 
+\#define {\bfseries M\+S\+G\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+H\+A\+S\+\_\+\+F\+I\+N\+I\+S\+H\+ED}~\char`\"{}iperf Done.\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -48,7 +63,5 @@ Die Schnittstellen-\/\+Klasse für iperf3.
 Diese Klasse fungiert als Schnittstelle zwischen der G\+U\+I-\/\+Applikation und dem Kommandozeilenprogramm iperf3.
 
 \begin{DoxyAuthor}{Autor}
-Andreas Hueber 
-
-Thomas Breuss 
+Tobias Merz 
 \end{DoxyAuthor}

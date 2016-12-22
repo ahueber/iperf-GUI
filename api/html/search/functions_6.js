@@ -15,6 +15,7 @@ var searchData=
   ['onbuttontwoclicked',['onButtonTwoClicked',['../class_num_pad.html#a16eb90e6203c9d59eb0c6ea2697100c2',1,'NumPad']]],
   ['onbuttonzeroclicked',['onButtonZeroClicked',['../class_num_pad.html#ac6620373f360b666b71108b13946013a',1,'NumPad']]],
   ['onclientbuttonclicked',['onClientButtonClicked',['../class_welcome_screen.html#adccaa9a1534c67f1fcd43245ff689b9e',1,'WelcomeScreen']]],
+  ['onclienthasfinished',['onClientHasFinished',['../class_client.html#a01f6d4ddcb338116dc4a4ba320f47456',1,'Client']]],
   ['onconnectionclosed',['onConnectionClosed',['../class_server.html#acd7ae4112f7be04a194781a1fb7d4e38',1,'Server']]],
   ['onconnectionestablished',['onConnectionEstablished',['../class_server.html#a6e9f425b8fc676a224daf08b2f8cc81c',1,'Server']]],
   ['onexitbuttonclicked',['onExitButtonClicked',['../class_client.html#a5f96334ebe2c8a22f6448cff80d027a5',1,'Client::onExitButtonClicked()'],['../class_server.html#a99f9b2f3521fb22772a61baf4f3c7bdc',1,'Server::onExitButtonClicked()'],['../class_welcome_screen.html#a587ba35bfff39970d795906f253a52f8',1,'WelcomeScreen::onExitButtonClicked()']]],

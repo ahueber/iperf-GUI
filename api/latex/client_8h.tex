@@ -5,12 +5,20 @@
 Das Widget für den Clientbetrieb.  
 
 
+{\ttfamily \#include \char`\"{}iperfinterface.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$Q\+Widget$>$}\newline
 \subsection*{Klassen}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_client}{Client}
 \begin{DoxyCompactList}\small\item\em Die Client-\/\+Klasse. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Makrodefinitionen}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}
+\item 
+\#define {\bfseries I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}
+\end{DoxyCompactItemize}
 
 
 \subsection{Ausführliche Beschreibung}
@@ -22,4 +30,31 @@ Diese Klasse repräsentiert das Widget für den Clientbetrieb der Applikation. D
 Andreas Hueber 
 
 Thomas Breuss 
+
+Tobias Merz 
 \end{DoxyAuthor}
+
+
+\subsection{Makro-\/\+Dokumentation}
+\hypertarget{client_8h_ae5b9e9624a29c4b92e2c227f9ace6f86}{}\label{client_8h_ae5b9e9624a29c4b92e2c227f9ace6f86} 
+\index{client.\+h@{client.\+h}!I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS@{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}}
+\index{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS@{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}!client.\+h@{client.\+h}}
+\subsubsection{\texorpdfstring{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}{IPERF\_CLIENT\_DUPLEX\_MODE\_ARGS}}
+{\footnotesize\ttfamily \#define I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+D\+U\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}
+
+{\bfseries Wert\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"-c \{\{IP\_ADDRESS\}\} -u -P 1 -i 1 -p 5001 -f m -b \{\{BANDWIDTH\}\} -t \{\{TIME\}\} "}  \(\backslash\)
+  \textcolor{stringliteral}{"-d -L 5001 -T 1"}
+\end{DoxyCode}
+\hypertarget{client_8h_a553654eb5cf951f25f4fc64cfc1e8287}{}\label{client_8h_a553654eb5cf951f25f4fc64cfc1e8287} 
+\index{client.\+h@{client.\+h}!I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS@{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}}
+\index{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS@{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}!client.\+h@{client.\+h}}
+\subsubsection{\texorpdfstring{I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}{IPERF\_CLIENT\_SIMPLEX\_MODE\_ARGS}}
+{\footnotesize\ttfamily \#define I\+P\+E\+R\+F\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+S\+I\+M\+P\+L\+E\+X\+\_\+\+M\+O\+D\+E\+\_\+\+A\+R\+GS}
+
+{\bfseries Wert\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"-c \{\{IP\_ADDRESS\}\} -u -P 1 -i 1 -p 5001 -f m -b \{\{BANDWIDTH\}\} -t \{\{TIME\}\} "}  \(\backslash\)
+  \textcolor{stringliteral}{"-T 1"}
+\end{DoxyCode}
