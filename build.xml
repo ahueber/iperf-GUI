@@ -2,7 +2,7 @@
 
 	<target name="qmake">
 		<exec executable="qmake">
-			<arg value="CONFIG+=Debug"/>
+			<arg value="CONFIG+=Release"/>
 			<arg value="src/iperf.pro"/>
 		</exec>	
 
