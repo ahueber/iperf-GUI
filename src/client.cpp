@@ -20,7 +20,7 @@ Client::Client(QWidget *parent) : QWidget(parent) {
 
   // traffic light
   tl = new TrafficLight();
-  tl->setColor(TrafficLight::yellow);
+  tl->setColor(TrafficLight::red);
 
   // labels
   QFont font;
@@ -144,11 +144,11 @@ void Client::onStartButtonClicked() {
 
     if (this->iperfInterface->state() == QProcess::NotRunning) {
       this->iperfInterface->run();
-
       this->tl->setColor(TrafficLight::green);
       this->listening = false;
       this->startButton->setText("Stop");
       this->setDisabledGui(true);
+
     } else if (this->iperfInterface->state() == QProcess::Running) {
       this->iperfInterface->kill();
 

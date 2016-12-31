@@ -161,7 +161,8 @@ void IperfInterface::parseLogOutput(const QString &logOutput) {
       logOutput.contains(QRegExp(MSG_CLIENT_CONNECTION_REFUSED)) ||
       logOutput.contains(QRegExp(MSG_CLIENT_HAS_TERMINATED)) ||
       logOutput.contains(QRegExp(MSG_CLIENT_UNEXPECTEDLY_CLOSED)) ||
-      logOutput.contains(QRegExp(MSG_CLIENT_HAS_FINISHED))
+      logOutput.contains(QRegExp(MSG_CLIENT_HAS_FINISHED)) ||
+      logOutput.contains(QRegExp("error"))
 
           ) {
     emit this->connectionClosed();
