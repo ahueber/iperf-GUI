@@ -58,7 +58,7 @@ Durch Aufruf von ANT werden die Source Dateien kompiliert und es wird ein Ordner
     ant
     
 ##Bash Skript zum Starten der Anwendung   
-Aufgrund eines Bugs im QComboBox Element von Qt5 unter Raspbian muss die Anwendung mit dem -nograb Flag geöffnet werden. Am einfachsten geht dies über ein kleinen Bash Skript das wir auf den Desktop legen.
+Aufgrund eines Bugs im QComboBox Element von Qt5 unter Raspbian muss die Anwendung mit dem -nograb Flag geöffnet werden. Am einfachsten geht dies über ein kleines Bash Skript das wir auf den Desktop legen.
 
     cd ~/Desktop
     sudo nano
