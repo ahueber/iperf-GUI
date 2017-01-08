@@ -33,7 +33,7 @@ Client::Client(QWidget *parent) : QWidget(parent) {
 
   QLabel *labelIP = new QLabel("IP");
   labelIP->setFont(font);
-  QLabel *labelModus = new QLabel("Modus");
+  QLabel *labelModus = new QLabel("Sender");
   labelModus->setFont(font);
   QLabel *labelRuntime = new QLabel("Laufzeit");
   labelRuntime->setFont(font);
@@ -47,11 +47,11 @@ Client::Client(QWidget *parent) : QWidget(parent) {
   fieldIP->setPlaceholderText("z.B. 10.22.0.160");
   fieldIP->setReadOnly(true);
 
-  simplex = new QRadioButton("Simplex");
-  simplex->setFont(font2);
-  duplex = new QRadioButton("Duplex");
-  duplex->setFont(font2);
-  duplex->setChecked(true);
+  serverToClient = new QRadioButton("Server");
+  serverToClient->setFont(font2);
+  clientToServer = new QRadioButton("Client");
+  clientToServer->setFont(font2);
+  clientToServer->setChecked(true);
 
   fieldRuntime = new QLineEdit();
   fieldRuntime->setFixedWidth(100);
@@ -83,8 +83,8 @@ Client::Client(QWidget *parent) : QWidget(parent) {
   layout->addWidget(labelRuntime, 2, 1);
   layout->addWidget(labelBandwidth, 3, 1);
   layout->addWidget(fieldIP, 0, 2, 1, 2);
-  layout->addWidget(duplex, 1, 2);
-  layout->addWidget(simplex, 1, 3);
+  layout->addWidget(clientToServer, 1, 2);
+  layout->addWidget(serverToClient, 1, 3);
   layout->addWidget(fieldRuntime, 2, 2);
   layout->addWidget(fieldBandwidth, 3, 2);
   layout->addWidget(sliderRuntime, 2, 3);
@@ -120,7 +120,7 @@ void Client::onStartButtonClicked() {
   QString ipAddress = this->fieldIP->text();
   QString bandwidth = this->fieldBandwidth->text().replace(" Mbit/s", "M");
   int time = this->fieldRuntime->text().replace(" s", "").toInt();
-  int mode = this->duplex->isChecked() ? 0 : 1;
+  int mode = this->clientToServer->isChecked() ? 0 : 1;
 
   QString iperfArgumentString("");
   if (ipAddress.length() && bandwidth.length() && time > 0) {
@@ -209,11 +209,11 @@ QString Client::createIperfArgumentString(QString ipAddress, QString bandwidth,
 
   switch (mode) {
   case 1:
-    result = IPERF_CLIENT_SIMPLEX_MODE_ARGS;
+    result = IPERF_SERVER_TO_CLIENT_MODE_ARGS;
     break;
   case 0:
   default:
-    result = IPERF_CLIENT_DUPLEX_MODE_ARGS;
+    result = IPERF_CLIENT_TO_SERVER_MODE_ARGS;
     break;
   }
 
@@ -225,8 +225,8 @@ QString Client::createIperfArgumentString(QString ipAddress, QString bandwidth,
 void Client::setDisabledGui(bool state) {
   this->keyboard->setDisabled(state);
 
-  this->duplex->setDisabled(state);
-  this->simplex->setDisabled(state);
+  this->clientToServer->setDisabled(state);
+  this->serverToClient->setDisabled(state);
 
   this->fieldIP->setDisabled(state);
 

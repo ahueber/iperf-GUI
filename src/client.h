@@ -22,12 +22,12 @@ class QRadioButton;
 class QSlider;
 class QLineEdit;
 
-#define IPERF_CLIENT_DUPLEX_MODE_ARGS                                          \
-  "-c {{IP_ADDRESS}} -u -P 1 -i 1 -p 5001 -f m -b {{BANDWIDTH}} -t {{TIME}} "  \
-  "-d -L 5001 -T 1"
-#define IPERF_CLIENT_SIMPLEX_MODE_ARGS                                         \
+#define IPERF_CLIENT_TO_SERVER_MODE_ARGS                                          \
   "-c {{IP_ADDRESS}} -u -P 1 -i 1 -p 5001 -f m -b {{BANDWIDTH}} -t {{TIME}} "  \
   "-T 1"
+#define IPERF_SERVER_TO_CLIENT_MODE_ARGS                                         \
+  "-c {{IP_ADDRESS}} -u -P 1 -i 1 -p 5001 -f m -b {{BANDWIDTH}} -t {{TIME}} "  \
+  "-R -T 1"
 
 /**
  * @brief Die Client-Klasse
@@ -42,8 +42,8 @@ private:
   QPushButton *keyboard;
   QSlider *sliderRuntime;
   QSlider *sliderBandwidth;
-  QRadioButton *simplex;
-  QRadioButton *duplex;
+  QRadioButton *serverToClient;
+  QRadioButton *clientToServer;
   QLineEdit *fieldRuntime;
   QLineEdit *fieldBandwidth;
   QLineEdit *fieldIP;

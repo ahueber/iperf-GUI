@@ -8,16 +8,12 @@
 #include <QVBoxLayout>
 
 WelcomeScreen::WelcomeScreen(QWidget *parent) : QWidget(parent) {
-  // window icon test
-  // setWindowIcon(QIcon(":/icon/images/icon.png"));
-
   setFixedSize(800, 480);
 
   QHBoxLayout *buttonsLayout = new QHBoxLayout();
   QVBoxLayout *vLayout = new QVBoxLayout();
 
   // create server & client buttons
-
   QFont font;
   font.setBold(true);
   font.setPointSize(25);
