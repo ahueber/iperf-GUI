@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     QSettings settings;
     if (!QFile(settings.fileName()).exists()) {
         settings.setValue("default.runtime", 30);
-        settings.setValue("default.bandwidth", 10);
+        settings.setValue("default.bandwidth", 30);
         // add additional config settings here
     }
 
