@@ -4,10 +4,10 @@
 Grafische Oberfläche basierend auf Qt5 um Belastungstests mit dem Netzwerk Tool iperf3 auf einem Raspberry Pi 3 mit 7'' Touch Display durchzuführen.
 
 **Server Fenster**
-![Server](https://raw.github.com/ahueber/iperf-gui/master/images/server.png)
+![Server](https://raw.github.com/ahueber/iperf-gui/master/resources/images/server.png)
 
 **Client Fenster**
-![Client](https://raw.github.com/ahueber/iperf-gui/master/images/client.png)
+![Client](https://raw.github.com/ahueber/iperf-gui/master/resources/images/client.png)
 
 ##Vorbereitung
 
