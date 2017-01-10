@@ -53,26 +53,7 @@ Danach wechseln wir in das neu erstellte Verzeichnis.
 
     cd iperf-gui/
     
-Durch Aufruf von ANT werden die Source Dateien kompiliert und es wird ein Ordner "release" erstellt mit der ausführbaren Datei "iperf"
+Durch Aufruf von ANT werden die Source Dateien kompiliert und es wird ein Launcher "iperf-GUI" auf den Desktop gelegt
 
     ant
-    
-##Bash Skript zum Starten der Anwendung   
-Aufgrund eines Bugs im QComboBox Element von Qt5 unter Raspbian muss die Anwendung mit dem -nograb Flag geöffnet werden. Am einfachsten geht dies über ein kleines Bash Skript das wir auf den Desktop legen.
-
-    cd ~/Desktop
-    sudo nano
-    
-Inhalt der Datei:
-
-    #!/bin/bash
-    /home/pi/iperf-gui/iperf -nograb
-    
-Über die Tastenkombination CTRL-O im Nano Editor kann die Datei gespeichert werden. Nachdem ein Name eingegeben (z.B. iperf-gui.sh) und mit Enter bestätigt wurde, kann der Nano Editor über die Tastenkombintation CTRL-X geschlossen werden.
-
-Als letztes muss noch die neu erstellte Datei ausführbar gemacht werden.
-
-    sudo chmod +x iperf-gui.sh
-
-Zum Starten der Anwendung muss jetzt nur noch ein Doppelklick auf das Start Skript gemacht und "Ausführen" ausgewählt werden.
     
