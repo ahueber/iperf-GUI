@@ -7,5 +7,7 @@
 		</exec>	
 
 		<exec executable="make"/>
+
+		<copy file="./resources/iperf-GUI.desktop" todir="/home/pi/Desktop"/>
 	</target>
 </project>	
