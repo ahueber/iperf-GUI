@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/trafficLight">
-        <file>images/tl_green.png</file>
-        <file>images/tl_red.png</file>
-        <file>images/tl_yellow.png</file>
+        <file>resources/images/tl_green.png</file>
+        <file>resources/images/tl_red.png</file>
+        <file>resources/images/tl_yellow.png</file>
     </qresource>
 </RCC>

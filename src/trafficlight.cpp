@@ -18,13 +18,13 @@ void TrafficLight::setColor(TrafficLight::color c) {
   QPixmap pic;
   switch (c) {
   case green:
-    pic.load(":/trafficLight/images/tl_green.png");
+    pic.load(":/trafficLight/resources/images/tl_green.png");
     break;
   case red:
-    pic.load(":/trafficLight/images/tl_red.png");
+    pic.load(":/trafficLight/resources/images/tl_red.png");
     break;
   case yellow:
-    pic.load(":/trafficLight/images/tl_yellow.png");
+    pic.load(":/trafficLight/resources/images/tl_yellow.png");
     break;
   }
 
