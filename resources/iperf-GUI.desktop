@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=iperf-GUI
-Icon=/home/pi/iperf-gui/images/resources/iperf_gui_logo.jpg
+Icon=/home/pi/iperf-gui/resources/images/iperf_gui_logo.jpg
 Exec=/home/pi/iperf-gui/release/iperf -nograb
 Type=Application
 Terminal=false
