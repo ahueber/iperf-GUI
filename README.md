@@ -1,6 +1,5 @@
-
-#IPERF-GUI Setup
-##Zweck
+# IPERF-GUI Setup
+## Zweck
 Grafische Oberfläche basierend auf Qt5 um Belastungstests mit dem Netzwerk Tool iperf3 auf einem Raspberry Pi 3 mit 7'' Touch Display durchzuführen.
 
 **Server Fenster**
@@ -9,7 +8,7 @@ Grafische Oberfläche basierend auf Qt5 um Belastungstests mit dem Netzwerk Tool
 **Client Fenster**
 ![Client](https://raw.github.com/ahueber/iperf-gui/master/resources/images/client.png)
 
-##Vorbereitung
+## Vorbereitung
 
 Als erstes müssen die Paketquellen und installierten Pakete auf den neusten Stand gebracht werden.
 
@@ -28,7 +27,7 @@ Falls GIT noch nicht installiert ist kann dies über folgenden Befehl gemacht we
 
     sudo apt-get install git
       
-##Installation iperf3  
+## Installation iperf3  
 Iperf3 muss mindestens in der Version 3.1 oder höher installiert sein. Zum aktuellen Zeitpunkt (Dez. 2016) ist eine tiefere Version in den APT Paketquellen, es müssen also die Debian Pakete für iperf3, sowie die benötigte Bibliothek von der offiziellen Webseite heruntergeladen werden.
 
     wget https://iperf.fr/download/ubuntu/iperf3_3.1.3-1_armhf.deb
@@ -44,7 +43,7 @@ Als nächstes können die Pakete installiert werden (Reihenfolge beachten).
     rm libiperf0_3.1.3-1_armhf.deb
     rm iperf3_3.1.3-1_armhf.deb
     
-##Installation IPERF-GUI
+## Installation IPERF-GUI
 Zuerst müssen die Source Dateien heruntergeladen werden.
 
     git clone http://github.com/ahueber/iperf-gui
